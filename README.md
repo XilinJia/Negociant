@@ -1,5 +1,5 @@
 
-# Negociant, automatic trading engine of commodity and financial futures
+# Negociant, automated trading system for commodity and financial futures
 
 ---
 
