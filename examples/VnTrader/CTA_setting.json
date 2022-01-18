@@ -1,0 +1,25 @@
+[
+    {
+        "name": "my Ma",
+        "className": "MyMaStrategy",
+        "vtSymbol": "p1901"
+    },
+
+    {
+        "name": "double ema",
+        "className": "DoubleMaStrategy",
+        "vtSymbol": "p1901"
+    },
+
+    {
+        "name": "atr rsi",
+        "className": "AtrRsiStrategy",
+        "vtSymbol": "p1901"
+    },
+
+    {
+        "name": "king keltner",
+        "className": "KkStrategy",
+        "vtSymbol": "p1901"
+    }
+]

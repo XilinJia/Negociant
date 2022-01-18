@@ -1,0 +1,33 @@
+{
+    "working": true,
+
+    "tick":
+    [
+        ["p1901", "CTP"],
+        ["m1801", "CTP"],
+        ["SR901", "CTP"],
+        ["IF1712", "CTP"],
+        ["IH1712", "CTP"],
+        ["IC1712", "CTP"]
+    ],
+
+    "bar":
+    [
+        ["p1901", "CTP"],
+        ["m1801", "CTP"],
+        ["SR901", "CTP"],
+        ["IF1712", "CTP"],
+        ["IH1712", "CTP"],
+        ["IC1712", "CTP"]
+    ],
+
+    "active":
+    {
+        "p.HOT": "p1901",
+        "m.HOT": "m1801",
+        "SR.HOT": "SR901",
+        "IF.HOT": "IF1712",
+        "IH.HOT": "IH1712",
+        "IC.HOT": "IC1712"   
+    }
+}

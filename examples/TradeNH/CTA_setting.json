@@ -1,0 +1,21 @@
+[
+    {
+        "name": "mySigsP",
+        "className": "MySignals4Strategy",
+        "vtSymbol": "p1901",
+        "hotSymbol": "p.HOT",
+        "useCapital": "40000.",
+        "contractSize": "10",
+        "margin":   "0.12"
+    },
+
+    {
+        "name": "mySigsSR",
+        "className": "MySignals4Strategy",
+        "vtSymbol": "SR901",
+        "hotSymbol": "SR.HOT",
+        "useCapital": "40000.",
+        "contractSize": "10",
+        "margin":   "0.12"
+    }
+]
