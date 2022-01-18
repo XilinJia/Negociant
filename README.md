@@ -54,7 +54,7 @@ While the system has been thoroughly tested and extensively used in live trading
 
 ### Contact
 
-If you have any questions about how to use the project or any suggestions about improving it, please feel free to communicate at https://github.com/XilinJia/Negociant.
+If you have any questions about how to use the project or any suggestions about improving it, please feel free to communicate me here.
 
 ---
 ### License
