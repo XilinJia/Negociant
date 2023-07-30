@@ -150,7 +150,7 @@ class MaSignal(CtaSignal):
 class MultiSignalStrategy(TargetPosTemplate):
     """跨时间周期交易策略"""
     className = 'MultiSignalStrategy'
-    author = u'用Python的交易员'
+    author = '用Python的交易员'
 
     # 策略参数
     initDays = 10           # 初始化数据所用的天数
@@ -193,7 +193,7 @@ class MultiSignalStrategy(TargetPosTemplate):
     #----------------------------------------------------------------------
     def onInit(self):
         """初始化策略（必须由用户继承实现）"""
-        self.writeCtaLog(u'%s策略初始化' %self.name)
+        self.writeCtaLog('%s策略初始化' %self.name)
 
         # 载入历史数据，并采用回放计算的方式初始化策略数值
         initData = self.loadBar(self.initDays)
@@ -205,13 +205,13 @@ class MultiSignalStrategy(TargetPosTemplate):
     #----------------------------------------------------------------------
     def onStart(self):
         """启动策略（必须由用户继承实现）"""
-        self.writeCtaLog(u'%s策略启动' %self.name)
+        self.writeCtaLog('%s策略启动' %self.name)
         self.putEvent()
 
     #----------------------------------------------------------------------
     def onStop(self):
         """停止策略（必须由用户继承实现）"""
-        self.writeCtaLog(u'%s策略停止' %self.name)
+        self.writeCtaLog('%s策略停止' %self.name)
         self.putEvent()
 
     #----------------------------------------------------------------------
@@ -244,7 +244,7 @@ class MultiSignalStrategy(TargetPosTemplate):
         self.signalPos['ma'] = self.maSignal.getSignalPos()
         
         targetPos = 0
-        for v in self.signalPos.values():
+        for v in list(self.signalPos.values()):
             targetPos += v
             
         self.setTargetPos(targetPos)

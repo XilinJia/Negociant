@@ -35,7 +35,7 @@ class RtdManager(QtWidgets.QWidget):
     #----------------------------------------------------------------------
     def initUi(self):
         """初始化界面"""
-        self.setWindowTitle(u'RTD服务')
+        self.setWindowTitle('RTD服务')
         
         self.logMonitor = QtWidgets.QTextBrowser()
         

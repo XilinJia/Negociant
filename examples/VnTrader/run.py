@@ -7,7 +7,8 @@ except NameError:  # Python 3
     from importlib import reload
 
 import sys
-reload(sys)
+import importlib
+importlib.reload(sys)
 
 try:
     sys.setdefaultencoding('utf8')

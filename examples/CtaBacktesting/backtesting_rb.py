@@ -4,7 +4,7 @@
 # In[1]:
 
 
-get_ipython().magic(u'matplotlib inline')
+get_ipython().magic('matplotlib inline')
 
 from negociant.trader.app.ctaStrategy.lkBacktesting import BacktestingEngine, OptimizationSetting, MINUTE_DB_NAME
 from negociant.trader.app.ctaStrategy.strategy.strategyBollChannel import BollChannelStrategy
@@ -72,5 +72,5 @@ engine.showBacktestingResult()
 # 显示前10条成交记录
 for i in range(10):
     d = engine.tradeDict[str(i+1)].__dict__
-    print 'TradeID: %s, Time: %s, Direction: %s, Price: %s, Volume: %s' %(d['tradeID'], d['dt'], d['direction'], d['price'], d['volume'])
+    print('TradeID: %s, Time: %s, Direction: %s, Price: %s, Volume: %s' %(d['tradeID'], d['dt'], d['direction'], d['price'], d['volume']))
 

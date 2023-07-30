@@ -62,7 +62,7 @@ class TradeResults(object) :
         
         # 首先基于回测后的成交记录，计算每笔交易的盈亏
 
-        for trade in self.tradeDict.values():
+        for trade in list(self.tradeDict.values()):
             # 复制成交对象，因为下面的开平仓交易配对涉及到对成交数量的修改
             # 若不进行复制直接操作，则计算完后所有成交的数量会变成0
             trade = copy.copy(trade)
@@ -269,7 +269,7 @@ class DailyResults(object) :
             return 
         
         # 将成交添加到每日交易结果中
-        for trade in self.tradeDict.values():
+        for trade in list(self.tradeDict.values()):
             date = trade.dt.date()
             dailyResult = self.dailyResultDict[date]
             dailyResult.addTrade(trade)
@@ -277,7 +277,7 @@ class DailyResults(object) :
         # 遍历计算每日结果
         previousClose = 0
         openPosition = 0
-        for dailyResult in self.dailyResultDict.values():
+        for dailyResult in list(self.dailyResultDict.values()):
             dailyResult.previousClose = previousClose
             previousClose = dailyResult.closePrice
             
@@ -287,8 +287,8 @@ class DailyResults(object) :
     #----------------------------------------------------------------------
     def calculateDailyStatistics(self, annualDays=240):
         """计算按日统计的结果"""
-        dateList = self.dailyResultDict.keys()
-        resultList = self.dailyResultDict.values()
+        dateList = list(self.dailyResultDict.keys())
+        resultList = list(self.dailyResultDict.values())
         
         self.startDate = dateList[0]
         self.endDate = dateList[-1]  

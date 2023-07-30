@@ -11,12 +11,13 @@ import numpy as np
 from collections import OrderedDict
 from datetime import datetime
 
-import lkIndicators as Ind
+from . import lkIndicators as Ind
 
 ########################################################################
 class Technicals(object):
 
     #----------------------------------------------------------------------
     def __init__(self, size=100):
+        pass
 
 # proprietary code removed

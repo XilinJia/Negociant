@@ -14,7 +14,7 @@ drSetting = json.load(drConfig)
 
 def isMinBarInSeccession(lastBar, bar) :
     if not marketHours.isMarketOpen(bar['symbol'], curTime=bar['datetime'].time()) :
-        print("minute bar out of market hours: ", bar['symbol'], str(bar['datetime']))
+        print(("minute bar out of market hours: ", bar['symbol'], str(bar['datetime'])))
         return False
 
     if not lastBar :
@@ -30,17 +30,17 @@ def isMinBarInSeccession(lastBar, bar) :
     if bar['datetime'] == lastBarTime + timedelta(minutes=1) :
         return True
 
-    print("minute bars not in seccession: ", bar['symbol'], str(lastBarTime), str(bar['datetime']))
+    print(("minute bars not in seccession: ", bar['symbol'], str(lastBarTime), str(bar['datetime'])))
     return False
 
 
 def isBarDataOK(bar) :
     if bar['open'] <= 0.  or bar['high'] <= 0. or bar['low'] <= 0. or bar['close'] <= 0. :
-        print("bar data <= 0: ", bar)
+        print(("bar data <= 0: ", bar))
         return False
 
     if abs(bar['high'] - bar['low']) > 0.1 * bar['low'] or abs(bar['close'] - bar['open']) > 0.1 * bar['open'] :
-        print("bar data invalid: ", bar)
+        print(("bar data invalid: ", bar))
         return False
 
     return True
@@ -64,7 +64,7 @@ def removeDuplicates(cl) :
     for doc in cursor:
         del doc["unique_ids"][0]
         for id in doc["unique_ids"]:
-            print("Found duplicate entry: ", id, " will remove")
+            print(("Found duplicate entry: ", id, " will remove"))
             response.append(id)
     cl.remove({"_id": {"$in": response}})
 
@@ -82,7 +82,7 @@ def checkData(dbName, collectionName, start):
     dataIsOK = True
     lastBar = None
     if len(cx) < 1 :
-        print("Previous day has no data", dbName, collectionName)
+        print(("Previous day has no data", dbName, collectionName))
         return False
         
     if dbName == MINUTE_DB_NAME :
@@ -95,7 +95,7 @@ def checkData(dbName, collectionName, start):
             if (not isBarDataOK(data)) or (not isDayBarFinished(data)) :
                 dataIsOK = False
             
-    print(u'DB：%s, Collection：%s, from：%s is %s' %(dbName, collectionName, start, dataIsOK))
+    print(('DB：%s, Collection：%s, from：%s is %s' %(dbName, collectionName, start, dataIsOK)))
     
     return dataIsOK
 
@@ -104,16 +104,16 @@ def checkNFillData(daysBack=None) :
     if not daysBack :
         daysBack = marketHours.weekdayOffset[datetime.today().weekday()]
     start = (today-timedelta(daysBack)).replace(hour=20, minute=58)            
-    print("checking data from days abck: ", daysBack, start)
+    print(("checking data from days abck: ", daysBack, start))
 
     for l in drSetting['bar']:
         dataIsOK = True
         symbol = l[0]
         if not checkData(MINUTE_DB_NAME, symbol, start) :
-            print("past minute data has problem: ", symbol, str(start))
+            print(("past minute data has problem: ", symbol, str(start)))
             dataIsOK = False
         if not checkData(DAILY_DB_NAME, symbol, start) :
-            print("past daily data has problem: ", symbol, str(start))
+            print(("past daily data has problem: ", symbol, str(start)))
             dataIsOK = False
 
         if not dataIsOK :
@@ -124,10 +124,10 @@ def checkNFillData(daysBack=None) :
         hotSymbol = l
         symbol = drSetting['active'][hotSymbol]
         if not checkData(MINUTE_DB_NAME, hotSymbol, start) :
-            print("past minute data has problem: ", symbol, str(start))
+            print(("past minute data has problem: ", symbol, str(start)))
             dataIsOK = False
         if not checkData(DAILY_DB_NAME, hotSymbol, start) :
-            print("past daily data has problem: ", symbol, str(start))
+            print(("past daily data has problem: ", symbol, str(start)))
             dataIsOK = False
             
         if not dataIsOK :

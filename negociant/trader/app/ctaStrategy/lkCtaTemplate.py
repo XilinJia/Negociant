@@ -92,7 +92,7 @@ class LKCtaTemplate(object):
             for key in self.paramList:
                 if key in setting:
                     d[key] = setting[key]
-                    print("read CTA_Setting: ", key, setting[key])
+                    print(("read CTA_Setting: ", key, setting[key]))
 
             if "useCapital" in d :
                 self.useCapital = float(d["useCapital"])
@@ -467,7 +467,7 @@ class LKSCC(LKTargetPos):
 
         # print(self.vtSymbol, "affordLots: ", affordLots, " curLots: ", abs(self.pos), " dumpLots: ", dumpLots, " availLots: ", availLots)
         if availLots < abs(newLots) :
-            print("availLots not enough for newLots: ", newLots, affordLots, self.pos, dumpLots, availLots, " reallocating")
+            print(("availLots not enough for newLots: ", newLots, affordLots, self.pos, dumpLots, availLots, " reallocating"))
             effStrats = 0
             for i in range(len(self.signals)) :
                 lotsi = self.signals[i].getSignalPos()
@@ -490,7 +490,7 @@ class LKSCC(LKTargetPos):
 
     #----------------------------------------------------------------------
     def onInit(self):
-        self.writeCtaLog(u'%s策略初始化' %self.name)
+        self.writeCtaLog('%s策略初始化' %self.name)
 
         for tech in self.tech.memList :
             self.techLog.write(tech + ',')
@@ -539,12 +539,12 @@ class LKSCC(LKTargetPos):
 
     #----------------------------------------------------------------------
     def onStart(self):
-        self.writeCtaLog(u'%s策略启动' %self.name)
+        self.writeCtaLog('%s策略启动' %self.name)
         self.putEvent()
 
     #----------------------------------------------------------------------
     def onStop(self):
-        self.writeCtaLog(u'%s策略停止' %self.name)
+        self.writeCtaLog('%s策略停止' %self.name)
         self.putEvent()
 
     #----------------------------------------------------------------------

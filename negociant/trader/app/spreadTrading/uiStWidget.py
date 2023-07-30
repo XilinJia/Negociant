@@ -29,13 +29,13 @@ class StTickMonitor(BasicMonitor):
         super(StTickMonitor, self).__init__(mainEngine, eventEngine, parent)
         
         d = OrderedDict()
-        d['name'] = {'chinese':u'价差名称', 'cellType':BasicCell}
-        d['bidPrice'] = {'chinese':u'买价', 'cellType':BidCell}
-        d['bidVolume'] = {'chinese':u'买量', 'cellType':BidCell}
-        d['askPrice'] = {'chinese':u'卖价', 'cellType':AskCell}
-        d['askVolume'] = {'chinese':u'卖量', 'cellType':AskCell}
-        d['time'] = {'chinese':u'时间', 'cellType':BasicCell}
-        d['symbol'] = {'chinese':u'价差公式', 'cellType':BasicCell}
+        d['name'] = {'chinese':'价差名称', 'cellType':BasicCell}
+        d['bidPrice'] = {'chinese':'买价', 'cellType':BidCell}
+        d['bidVolume'] = {'chinese':'买量', 'cellType':BidCell}
+        d['askPrice'] = {'chinese':'卖价', 'cellType':AskCell}
+        d['askVolume'] = {'chinese':'卖量', 'cellType':AskCell}
+        d['time'] = {'chinese':'时间', 'cellType':BasicCell}
+        d['symbol'] = {'chinese':'价差公式', 'cellType':BasicCell}
         self.setHeaderDict(d)
     
         self.setDataKey('name')
@@ -56,11 +56,11 @@ class StPosMonitor(BasicMonitor):
         super(StPosMonitor, self).__init__(mainEngine, eventEngine, parent)
         
         d = OrderedDict()
-        d['name'] = {'chinese':u'价差名称', 'cellType':BasicCell}
-        d['netPos'] = {'chinese':u'净仓', 'cellType':PnlCell}
-        d['longPos'] = {'chinese':u'多仓', 'cellType':BasicCell}
-        d['shortPos'] = {'chinese':u'空仓', 'cellType':BasicCell}
-        d['symbol'] = {'chinese':u'代码', 'cellType':BasicCell}
+        d['name'] = {'chinese':'价差名称', 'cellType':BasicCell}
+        d['netPos'] = {'chinese':'净仓', 'cellType':PnlCell}
+        d['longPos'] = {'chinese':'多仓', 'cellType':BasicCell}
+        d['shortPos'] = {'chinese':'空仓', 'cellType':BasicCell}
+        d['symbol'] = {'chinese':'代码', 'cellType':BasicCell}
         self.setHeaderDict(d)
     
         self.setDataKey('name')
@@ -110,8 +110,8 @@ class StAlgoLogMonitor(BasicMonitor):
         super(StAlgoLogMonitor, self).__init__(mainEngine, eventEngine, parent)
         
         d = OrderedDict()
-        d['logTime'] = {'chinese':u'时间', 'cellType':BasicCell}
-        d['logContent'] = {'chinese':u'信息', 'cellType':BasicCell}
+        d['logTime'] = {'chinese':'时间', 'cellType':BasicCell}
+        d['logContent'] = {'chinese':'信息', 'cellType':BasicCell}
         self.setHeaderDict(d)
     
         self.setEventType(EVENT_SPREADTRADING_ALGOLOG)
@@ -396,7 +396,7 @@ class StActiveButton(QtWidgets.QPushButton):
     #----------------------------------------------------------------------
     def setStarted(self):
         """算法启动"""
-        self.setText(u'运行中')
+        self.setText('运行中')
         self.setStyleSheet(STYLESHEET_START)
         
         self.active = True
@@ -405,7 +405,7 @@ class StActiveButton(QtWidgets.QPushButton):
     #----------------------------------------------------------------------
     def setStopped(self):
         """算法停止"""
-        self.setText(u'已停止')
+        self.setText('已停止')
         self.setStyleSheet(STYLESHEET_STOP)
         
         self.active = False
@@ -434,17 +434,17 @@ class StAlgoManager(QtWidgets.QTableWidget):
     #----------------------------------------------------------------------
     def initUi(self):
         """初始化表格"""
-        headers = [u'价差',
-                   u'算法',
-                   u'净持仓'
+        headers = ['价差',
+                   '算法',
+                   '净持仓'
                    'BuyPrice',
                    'SellPrice',
                    'CoverPrice',
                    'ShortPrice',
-                   u'委托上限',
-                   u'持仓上限',
-                   u'模式',
-                   u'状态']
+                   '委托上限',
+                   '持仓上限',
+                   '模式',
+                   '状态']
         self.setColumnCount(len(headers))
         self.setHorizontalHeaderLabels(headers)
         
@@ -503,7 +503,7 @@ class StAlgoManager(QtWidgets.QTableWidget):
     #----------------------------------------------------------------------
     def stopAll(self):
         """停止所有算法"""
-        for button in self.buttonActiveDict.values():
+        for button in list(self.buttonActiveDict.values()):
             button.stop()     
     
     #----------------------------------------------------------------------
@@ -555,7 +555,7 @@ class StManager(QtWidgets.QWidget):
     #----------------------------------------------------------------------
     def initUi(self):
         """初始化界面"""
-        self.setWindowTitle(u'价差交易')
+        self.setWindowTitle('价差交易')
         
         # 创建组件
         tickMonitor = StTickMonitor(self.mainEngine, self.eventEngine)
@@ -565,18 +565,18 @@ class StManager(QtWidgets.QWidget):
         algoLogMonitor = StAlgoLogMonitor(self.mainEngine, self.eventEngine)
         
         # 创建按钮
-        buttonInit = QtWidgets.QPushButton(u'初始化')
+        buttonInit = QtWidgets.QPushButton('初始化')
         buttonInit.clicked.connect(self.init)       
         
-        buttonStopAll = QtWidgets.QPushButton(u'全部停止')
+        buttonStopAll = QtWidgets.QPushButton('全部停止')
         buttonStopAll.clicked.connect(self.algoManager.stopAll)
         
         # 创建集合
-        groupTick = StGroup(tickMonitor, u'价差行情')
-        groupPos = StGroup(posMonitor, u'价差持仓')
-        groupLog = StGroup(logMonitor, u'日志信息')
-        groupAlgo = StGroup(self.algoManager, u'价差算法')
-        groupAlgoLog = StGroup(algoLogMonitor, u'算法信息')
+        groupTick = StGroup(tickMonitor, '价差行情')
+        groupPos = StGroup(posMonitor, '价差持仓')
+        groupLog = StGroup(logMonitor, '日志信息')
+        groupAlgo = StGroup(self.algoManager, '价差算法')
+        groupAlgoLog = StGroup(algoLogMonitor, '算法信息')
         
         # 设置布局
         hbox = QtWidgets.QHBoxLayout()

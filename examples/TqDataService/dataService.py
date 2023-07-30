@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-from __future__ import print_function
+
 import sys
 import json
 from datetime import datetime
@@ -59,7 +59,7 @@ def onChart(symbol, seconds):
     cl = db[symbol]                                                 # 集合
     cl.ensure_index([('datetime', ASCENDING)], unique=True)         # 添加索引
     
-    l = serial.values()
+    l = list(serial.values())
     for d in l:
         bar = generateVtBar(symbol, d)
         d = bar.__dict__
@@ -68,7 +68,7 @@ def onChart(symbol, seconds):
     
     start = datetime.fromtimestamp(l[0]['datetime']/1000000000)
     end = datetime.fromtimestamp(l[-1]['datetime']/1000000000)
-    print(u'合约%s下载完成%s - %s' %(symbol, start, end))
+    print('合约%s下载完成%s - %s' %(symbol, start, end))
     
     # 移除已经完成的任务
     if symbol in taskList:
@@ -83,7 +83,7 @@ def downMinuteBarBySymbol(symbol, num):
 def downloadAllMinuteBar(num, symbols):
     """下载所有配置中的合约的分钟线数据"""
     print('-' * 50)
-    print(u'开始下载合约分钟线数据')
+    print('开始下载合约分钟线数据')
     print('-' * 50)
     
     # 添加下载任务
@@ -98,7 +98,7 @@ def downloadAllMinuteBar(num, symbols):
         # 如果任务列表为空，则说明数据已经全部下载完成
         if not taskList:
             print('-' * 50)
-            print(u'合约分钟线数据下载完成')
+            print('合约分钟线数据下载完成')
             print('-' * 50)
             return       
     

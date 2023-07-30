@@ -4,7 +4,7 @@
 展示如何执行策略回测。
 """
 
-from __future__ import division
+
 
 
 from negociant.trader.app.ctaStrategy.lkBacktesting import BacktestingEngine, MINUTE_DB_NAME

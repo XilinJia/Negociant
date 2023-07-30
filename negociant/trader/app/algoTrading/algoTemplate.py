@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-from __future__ import division
+
 from datetime import datetime
 
 from negociant.trader.vtConstant import STATUS_NOTTRADED, STATUS_PARTTRADED, STATUS_UNKNOWN
@@ -139,7 +139,7 @@ class AlgoTemplate(object):
         if not self.activeOrderDict:
             return False
         
-        for order in self.activeOrderDict.values():
+        for order in list(self.activeOrderDict.values()):
             self.cancelOrder(order.vtOrderID)
         return True
     

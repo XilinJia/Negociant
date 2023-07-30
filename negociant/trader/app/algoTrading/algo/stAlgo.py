@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-from __future__ import division
+
 from collections import OrderedDict
 
 from negociant.trader.vtConstant import (DIRECTION_LONG, DIRECTION_SHORT,
@@ -15,7 +15,7 @@ from negociant.trader.app.algoTrading.uiAlgoWidget import AlgoWidget, QtWidgets
 class StAlgo(AlgoTemplate):
     """自成交算法（self trade），用于刷成交量"""
     
-    templateName = u'SelfTrade 刷单'
+    templateName = 'SelfTrade 刷单'
 
     #----------------------------------------------------------------------
     def __init__(self, engine, setting, algoName):
@@ -72,7 +72,7 @@ class StAlgo(AlgoTemplate):
             
             tickSpread = (tick.askPrice1 - tick.bidPrice1) / contract.priceTick
             if tickSpread < self.minTickSpread:
-                self.writeLog(u'当前价差为%s个Tick，小于算法设置%s，不执行刷单' %(tickSpread, self.minTickSpread))
+                self.writeLog('当前价差为%s个Tick，小于算法设置%s，不执行刷单' %(tickSpread, self.minTickSpread))
                 return
             
             midPrice = tick.bidPrice1 + contract.priceTick * int(tickSpread/2)
@@ -80,23 +80,23 @@ class StAlgo(AlgoTemplate):
             self.buy(self.vtSymbol, midPrice, self.orderVolume)
             self.sell(self.vtSymbol, midPrice, self.orderVolume)
             
-            self.writeLog(u'发出刷单买卖委托，价格：%s，数量：%s' %(midPrice, self.orderVolume))
+            self.writeLog('发出刷单买卖委托，价格：%s，数量：%s' %(midPrice, self.orderVolume))
         
         self.varEvent()
         
     #----------------------------------------------------------------------
     def onStop(self):
         """"""
-        self.writeLog(u'停止算法')
+        self.writeLog('停止算法')
         self.varEvent()
         
     #----------------------------------------------------------------------
     def varEvent(self):
         """更新变量"""
         d = OrderedDict()
-        d[u'算法状态'] = self.active
-        d[u'成交数量'] = self.tradedVolume
-        d[u'定时计数'] = self.count
+        d['算法状态'] = self.active
+        d['成交数量'] = self.tradedVolume
+        d['定时计数'] = self.count
         d['active'] = self.active
         self.putVarEvent(d)
     
@@ -104,10 +104,10 @@ class StAlgo(AlgoTemplate):
     def paramEvent(self):
         """更新参数"""
         d = OrderedDict()
-        d[u'代码'] = self.vtSymbol
-        d[u'单次委托数量'] = self.orderVolume
-        d[u'执行间隔'] = self.interval
-        d[u'最小价差Tick'] = self.minTickSpread    
+        d['代码'] = self.vtSymbol
+        d['单次委托数量'] = self.orderVolume
+        d['执行间隔'] = self.interval
+        d['最小价差Tick'] = self.minTickSpread    
         self.putParamEvent(d)
 
 
@@ -143,13 +143,13 @@ class StWidget(AlgoWidget):
         Label = QtWidgets.QLabel
         
         grid = QtWidgets.QGridLayout()
-        grid.addWidget(Label(u'代码'), 0, 0)
+        grid.addWidget(Label('代码'), 0, 0)
         grid.addWidget(self.lineSymbol, 0, 1)
-        grid.addWidget(Label(u'单次刷单量'), 1, 0)
+        grid.addWidget(Label('单次刷单量'), 1, 0)
         grid.addWidget(self.spinVolume, 1, 1)
-        grid.addWidget(Label(u'执行间隔'), 2, 0)
+        grid.addWidget(Label('执行间隔'), 2, 0)
         grid.addWidget(self.spinInterval, 2, 1)
-        grid.addWidget(Label(u'最小价差Tick'), 3, 0)
+        grid.addWidget(Label('最小价差Tick'), 3, 0)
         grid.addWidget(self.spinMinTickSpread, 3, 1)
         
         return grid

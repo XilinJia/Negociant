@@ -117,7 +117,7 @@ class DrEngineManager(QtWidgets.QWidget):
         """显示引擎行情记录配置"""
         setting, activeSetting = self.drEngine.getSetting()
         
-        for d in setting.values():
+        for d in list(setting.values()):
             if 'tick' in d and d['tick']:
                 self.tickTable.insertRow(0)
                 self.tickTable.setItem(0, 0, TableCell(d['symbol']))
@@ -128,7 +128,7 @@ class DrEngineManager(QtWidgets.QWidget):
                 self.barTable.setItem(0, 0, TableCell(d['symbol']))
                 self.barTable.setItem(0, 1, TableCell(d['gateway'])) 
 
-        for vtSymbol, activeSymbol in activeSetting.items():
+        for vtSymbol, activeSymbol in list(activeSetting.items()):
             self.activeTable.insertRow(0)
             self.activeTable.setItem(0, 0, TableCell(activeSymbol))
             self.activeTable.setItem(0, 1, TableCell(vtSymbol))

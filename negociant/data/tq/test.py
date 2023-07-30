@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
-from __future__ import print_function
-from __future__ import absolute_import
+
+
 from six import input
 
 from .vntq import TqApi
@@ -46,4 +46,4 @@ if __name__ == "__main__":
 
     # 订阅K线图表
     api.subscribe_chart(symbol, 60, 1000, onChart)
-    input()
+    eval(input())

@@ -90,7 +90,7 @@ engine.showBacktestingResult()
 # 显示前10条成交记录
 for i in range(10):
     d = engine.tradeDict[str(i+1)].__dict__
-    print 'TradeID: %s, Time: %s, Direction: %s, Price: %s, Volume: %s' %(d['tradeID'], d['dt'], d['direction'], d['price'], d['volume'])
+    print('TradeID: %s, Time: %s, Direction: %s, Price: %s, Volume: %s' %(d['tradeID'], d['dt'], d['direction'], d['price'], d['volume']))
 
 
 # In[ ]:
@@ -108,7 +108,7 @@ import time
 start = time.time()
 #resultList = engine.runParallelOptimization(AtrRsiStrategy, setting)
 resultList = engine.runOptimization(AtrRsiStrategy, setting)
-print u'耗时：%s' %(time.time()-start)
+print('耗时：%s' %(time.time()-start))
 
 
 # In[ ]:
@@ -116,11 +116,11 @@ print u'耗时：%s' %(time.time()-start)
 
 # 显示优化的所有统计数据
 for result in resultList:
-    print '-' * 30
-    print u'参数：%s，目标：%s' %(result[0], result[1])
-    print u'统计数据：'
-    for k, v in result[2].items():
-        print u'%s：%s' %(k, v)
+    print('-' * 30)
+    print('参数：%s，目标：%s' %(result[0], result[1]))
+    print('统计数据：')
+    for k, v in list(result[2].items()):
+        print('%s：%s' %(k, v))
 
 
 # In[ ]:

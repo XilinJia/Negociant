@@ -1,15 +1,15 @@
 # encoding: UTF-8
 
-DATA_RECORDER = u'Data Recorder'
+DATA_RECORDER = 'Data Recorder'
 
-TICK_RECORD = u'Tick Record'
-BAR_RECORD = u'Bar Record'
+TICK_RECORD = 'Tick Record'
+BAR_RECORD = 'Bar Record'
 
-CONTRACT_SYMBOL = u'Contract Symbol'
-GATEWAY = u'Gateway'
+CONTRACT_SYMBOL = 'Contract Symbol'
+GATEWAY = 'Gateway'
 
-DOMINANT_CONTRACT = u'Dominant Contract'
-DOMINANT_SYMBOL = u'Dominant Symbol'
+DOMINANT_CONTRACT = 'Dominant Contract'
+DOMINANT_SYMBOL = 'Dominant Symbol'
 
-TICK_LOGGING_MESSAGE = u'Record Tick Data {symbol}, Time:{time}, last:{last}, bid:{bid}, ask:{ask}'
-BAR_LOGGING_MESSAGE = u'Record Bar Data {symbol}, Time:{time}, O:{open}, H:{high}, L:{low}, C:{close}'
+TICK_LOGGING_MESSAGE = 'Record Tick Data {symbol}, Time:{time}, last:{last}, bid:{bid}, ask:{ask}'
+BAR_LOGGING_MESSAGE = 'Record Bar Data {symbol}, Time:{time}, O:{open}, H:{high}, L:{low}, C:{close}'

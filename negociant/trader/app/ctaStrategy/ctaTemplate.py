@@ -85,8 +85,8 @@ class CtaTemplate(object):
 
         self.tradeRec = TradeRecord(self.vtSymbol)
 
-        print(self.name, " Capital: ", self.useCapital, " ", self.vtSymbol, " contractSize: ", 
-                self.contractSize, " margin: ", self.margin, " effCapital: ", self.effCapital)       
+        print((self.name, " Capital: ", self.useCapital, " ", self.vtSymbol, " contractSize: ", 
+                self.contractSize, " margin: ", self.margin, " effCapital: ", self.effCapital))       
 
     
     #----------------------------------------------------------------------
@@ -134,7 +134,7 @@ class CtaTemplate(object):
     
     def goLong(self, price) :
         lots = self.getLots(price)
-        print("Going long ", self.vtSymbol, " lots:", lots, " ", self.pos, " at price: ", price)
+        print(("Going long ", self.vtSymbol, " lots:", lots, " ", self.pos, " at price: ", price))
         if self.pos < 0:
             self.cover(price, abs(self.pos))
         if lots>0 :
@@ -143,7 +143,7 @@ class CtaTemplate(object):
 
     def goShort(self, price) :
         lots = self.getLots(price)
-        print("Going short ", self.vtSymbol, " lots:", lots, " ", self.pos, " at price: ", price)
+        print(("Going short ", self.vtSymbol, " lots:", lots, " ", self.pos, " at price: ", price))
         if self.pos > 0:
             self.sell(price, self.pos)
         if lots>0 :
@@ -271,7 +271,7 @@ class TargetPosTemplate(CtaTemplate):
     """
     
     className = 'TargetPosTemplate'
-    author = u'量衍投资'
+    author = '量衍投资'
     
     # 目标持仓模板的基本变量
     tickAdd = 1             # 委托时相对基准价格的超价

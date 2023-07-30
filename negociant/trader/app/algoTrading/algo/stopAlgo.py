@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-from __future__ import division
+
 from collections import OrderedDict
 
 from six import text_type
@@ -21,7 +21,7 @@ STATUS_FINISHED = set([STATUS_ALLTRADED, STATUS_CANCELLED, STATUS_REJECTED])
 class StopAlgo(AlgoTemplate):
     """停止单算法，也可以用于止损单"""
     
-    templateName = u'STOP 条件委托'
+    templateName = 'STOP 条件委托'
 
     #----------------------------------------------------------------------
     def __init__(self, engine, setting, algoName):
@@ -72,7 +72,7 @@ class StopAlgo(AlgoTemplate):
             
         self.vtOrderID = func(self.vtSymbol, price, self.volume, offset=self.offset)
         
-        msg = u'停止单已触发，代码：%s，方向：%s, 价格：%s，数量：%s，开平：%s' %(self.vtSymbol,
+        msg = '停止单已触发，代码：%s，方向：%s, 价格：%s，数量：%s，开平：%s' %(self.vtSymbol,
                                                                                 self.direction,
                                                                                 self.stopPrice,
                                                                                 self.totalVolume,
@@ -106,17 +106,17 @@ class StopAlgo(AlgoTemplate):
     #----------------------------------------------------------------------
     def onStop(self):
         """"""
-        self.writeLog(u'停止算法')
+        self.writeLog('停止算法')
         self.varEvent()
         
     #----------------------------------------------------------------------
     def varEvent(self):
         """更新变量"""
         d = OrderedDict()
-        d[u'算法状态'] = self.active
-        d[u'委托号'] = self.vtOrderID
-        d[u'成交数量'] = self.tradedVolume
-        d[u'委托状态'] = self.orderStatus
+        d['算法状态'] = self.active
+        d['委托号'] = self.vtOrderID
+        d['成交数量'] = self.tradedVolume
+        d['委托状态'] = self.orderStatus
         d['active'] = self.active
         self.putVarEvent(d)
     
@@ -124,11 +124,11 @@ class StopAlgo(AlgoTemplate):
     def paramEvent(self):
         """更新参数"""
         d = OrderedDict()
-        d[u'代码'] = self.vtSymbol
-        d[u'方向'] = self.direction
-        d[u'触发价格'] = self.stopPrice
-        d[u'数量'] = self.totalVolume
-        d[u'开平'] = self.offset
+        d['代码'] = self.vtSymbol
+        d['方向'] = self.direction
+        d['触发价格'] = self.stopPrice
+        d['数量'] = self.totalVolume
+        d['开平'] = self.offset
         self.putParamEvent(d)
 
 
@@ -172,24 +172,24 @@ class StopWidget(AlgoWidget):
         self.spinPriceAdd.setMaximum(1000000000)
         self.spinPriceAdd.setDecimals(8)        
         
-        buttonStart = QtWidgets.QPushButton(u'启动')
+        buttonStart = QtWidgets.QPushButton('启动')
         buttonStart.clicked.connect(self.addAlgo)
         buttonStart.setMinimumHeight(100)
         
         Label = QtWidgets.QLabel
         
         grid = QtWidgets.QGridLayout()
-        grid.addWidget(Label(u'代码'), 0, 0)
+        grid.addWidget(Label('代码'), 0, 0)
         grid.addWidget(self.lineSymbol, 0, 1)
-        grid.addWidget(Label(u'方向'), 1, 0)
+        grid.addWidget(Label('方向'), 1, 0)
         grid.addWidget(self.comboDirection, 1, 1)
-        grid.addWidget(Label(u'价格'), 2, 0)
+        grid.addWidget(Label('价格'), 2, 0)
         grid.addWidget(self.spinPrice, 2, 1)
-        grid.addWidget(Label(u'数量'), 3, 0)
+        grid.addWidget(Label('数量'), 3, 0)
         grid.addWidget(self.spinVolume, 3, 1)
-        grid.addWidget(Label(u'开平'), 4, 0)
+        grid.addWidget(Label('开平'), 4, 0)
         grid.addWidget(self.comboOffset, 4, 1)
-        grid.addWidget(Label(u'超价'), 5, 0)
+        grid.addWidget(Label('超价'), 5, 0)
         grid.addWidget(self.spinPriceAdd, 5, 1)        
         
         return grid

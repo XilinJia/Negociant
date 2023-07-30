@@ -13,7 +13,7 @@ import copy
 import traceback
 from collections import OrderedDict
 from datetime import datetime, timedelta, time
-from Queue import Queue, Empty
+from queue import Queue, Empty
 from threading import Thread
 from pymongo.errors import DuplicateKeyError
 
@@ -100,7 +100,7 @@ class DrEngine(object):
             # 主力合约记录配置
             if 'active' in drSetting:
                 d = drSetting['active']
-                self.activeSymbolDict = {vtSymbol:activeSymbol for activeSymbol, vtSymbol in d.items()}
+                self.activeSymbolDict = {vtSymbol:activeSymbol for activeSymbol, vtSymbol in list(d.items())}
 
             # Tick记录配置
             if 'tick' in drSetting:
@@ -181,7 +181,7 @@ class DrEngine(object):
 
                     bm = self.bgDict[vtSymbol]
                     daysBack = self.marketHours.weekdayOffset[datetime.today().weekday()]
-                    print("init for day bar from : ", daysBack, todayDate()-timedelta(daysBack))
+                    print(("init for day bar from : ", daysBack, todayDate()-timedelta(daysBack)))
                     initData = self.loadBar(MINUTE_DB_NAME, vtSymbol, daysBack)
                     bm.fillDayBarsWithMinute(initData)
 
@@ -229,7 +229,7 @@ class DrEngine(object):
             if bm:
                 bm.updateTick(tick)
         else :
-            print("onTick Offhour: ", tick.time, " ", tick.vtSymbol, " ", tick.lastPrice)
+            print(("onTick Offhour: ", tick.time, " ", tick.vtSymbol, " ", tick.lastPrice))
 
     
     #----------------------------------------------------------------------
@@ -253,13 +253,13 @@ class DrEngine(object):
             if (self.marketHours.isMarketJustClose(vtSymbol, curTime=self.lastTimerTime) and 
                 (not self.marketHours.isMarketJustClose(vtSymbol, curTime=currentTime))) :
                 bg = self.bgDict.get(vtSymbol, None)
-                print(vtSymbol, currentTime, "force finish session ")
+                print((vtSymbol, currentTime, "force finish session "))
                 bg.finalizeDay()
                 
             elif (self.marketHours.isSessionJustClose(vtSymbol, curTime=self.lastTimerTime) and 
                 (not self.marketHours.isSessionJustClose(vtSymbol, curTime=currentTime))) :
                 bg = self.bgDict.get(vtSymbol, None)
-                print(vtSymbol, currentTime, "force finish session ")
+                print((vtSymbol, currentTime, "force finish session "))
                 bg.generate()
 
         # 记录新的时间
@@ -299,7 +299,7 @@ class DrEngine(object):
         if bTime == lastBarTime + timedelta(minutes=1) :
             return True
 
-        print("Recording minute bars not in seccession: ", vtSymbol, lastBarTime, bTime)
+        print(("Recording minute bars not in seccession: ", vtSymbol, lastBarTime, bTime))
         return False
 
 
@@ -330,7 +330,7 @@ class DrEngine(object):
         flt = {'date': bar.date}
         l = self.mainEngine.dbQuery(DAILY_DB_NAME, vtSymbol, flt)
         if l :
-            print("onDayBar updating bar: ", l)
+            print(("onDayBar updating bar: ", l))
         self.mainEngine.dbUpdate(DAILY_DB_NAME, vtSymbol, bar.__dict__, flt, True)
         
         if vtSymbol in self.activeSymbolDict:
@@ -371,7 +371,7 @@ class DrEngine(object):
                 try:
                     self.mainEngine.dbInsert(dbName, collectionName, d)
                 except DuplicateKeyError:
-                    self.writeDrLog(u'键值重复插入失败，报错信息：%s' %traceback.format_exc())
+                    self.writeDrLog('键值重复插入失败，报错信息：%s' %traceback.format_exc())
             except Empty:
                 pass
             

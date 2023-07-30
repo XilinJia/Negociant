@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-from __future__ import division
+
 from collections import OrderedDict
 
 from negociant.trader.vtConstant import (DIRECTION_LONG, DIRECTION_SHORT,
@@ -20,7 +20,7 @@ STATUS_FINISHED = set([STATUS_ALLTRADED, STATUS_CANCELLED, STATUS_REJECTED])
 class ArbitrageAlgo(AlgoTemplate):
     """Arbitrage算法，用于套利"""
     
-    templateName = u'Arbitrage 套利'
+    templateName = 'Arbitrage 套利'
 
     #----------------------------------------------------------------------
     def __init__(self, engine, setting, algoName):
@@ -120,7 +120,7 @@ class ArbitrageAlgo(AlgoTemplate):
     #----------------------------------------------------------------------
     def onStop(self):
         """"""
-        self.writeLog(u'算法停止')
+        self.writeLog('算法停止')
         
         self.varEvent()
         
@@ -128,22 +128,22 @@ class ArbitrageAlgo(AlgoTemplate):
     def varEvent(self):
         """更新变量"""
         d = OrderedDict()
-        d[u'算法状态'] = self.active
-        d[u'运行计数'] = self.count
-        d[u'净持仓'] = self.netPos
-        d[u'主动腿委托号'] = self.activeOrderID
-        d[u'被动腿委托号'] = self.passiveOrderID
+        d['算法状态'] = self.active
+        d['运行计数'] = self.count
+        d['净持仓'] = self.netPos
+        d['主动腿委托号'] = self.activeOrderID
+        d['被动腿委托号'] = self.passiveOrderID
         self.putVarEvent(d)
     
     #----------------------------------------------------------------------
     def paramEvent(self):
         """更新参数"""
         d = OrderedDict()
-        d[u'主动腿代码'] = self.activeVtSymbol
-        d[u'被动腿代码'] = self.passiveVtSymbol
-        d[u'价差'] = self.spread
-        d[u'数量'] = self.volume
-        d[u'间隔'] = self.interval
+        d['主动腿代码'] = self.activeVtSymbol
+        d['被动腿代码'] = self.passiveVtSymbol
+        d['价差'] = self.spread
+        d['数量'] = self.volume
+        d['间隔'] = self.interval
         self.putParamEvent(d)
 
     #----------------------------------------------------------------------
@@ -197,15 +197,15 @@ class ArbitrageWidget(AlgoWidget):
         Label = QtWidgets.QLabel
         
         grid = QtWidgets.QGridLayout()
-        grid.addWidget(Label(u'主动腿代码'), 0, 0)
+        grid.addWidget(Label('主动腿代码'), 0, 0)
         grid.addWidget(self.lineActiveVtSymbol, 0, 1)
-        grid.addWidget(Label(u'被动腿代码'), 1, 0)
+        grid.addWidget(Label('被动腿代码'), 1, 0)
         grid.addWidget(self.linePassiveVtSymbol, 1, 1)
-        grid.addWidget(Label(u'套利价差'), 2, 0)
+        grid.addWidget(Label('套利价差'), 2, 0)
         grid.addWidget(self.lineSpread, 2, 1)
-        grid.addWidget(Label(u'委托数量'), 3, 0)
+        grid.addWidget(Label('委托数量'), 3, 0)
         grid.addWidget(self.lineVolume, 3, 1)
-        grid.addWidget(Label(u'运行间隔'), 4, 0)
+        grid.addWidget(Label('运行间隔'), 4, 0)
         grid.addWidget(self.lineInterval, 4, 1)
         
         return grid

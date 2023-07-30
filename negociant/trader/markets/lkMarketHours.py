@@ -229,7 +229,7 @@ class MarketsOpHours(object):
         """
         cTime = self._formatCurTime(curTime)
 
-        aSym = filter(str.isalpha, symbol.encode('ascii', 'ignore'))
+        aSym = list(filter(str.isalpha, symbol.encode('ascii', 'ignore')))
         if aSym and aSym in self.markettimes :
             if self.markettimes[aSym].isMarketOpen(cTime, looseTerm) :
                 return True
@@ -257,7 +257,7 @@ class MarketsOpHours(object):
         """
         cTime = self._formatCurTime(curTime)
 
-        aSym = filter(str.isalpha, symbol.encode('ascii', 'ignore'))
+        aSym = list(filter(str.isalpha, symbol.encode('ascii', 'ignore')))
         if aSym and aSym in self.markettimes :
             if self.markettimes[aSym].isAtMarketOpen(cTime, looseTerm) :
                 return True
@@ -284,7 +284,7 @@ class MarketsOpHours(object):
         """
         cTime = self._formatCurTime(curTime)
 
-        aSym = filter(str.isalpha, symbol.encode('ascii', 'ignore'))
+        aSym = list(filter(str.isalpha, symbol.encode('ascii', 'ignore')))
         if aSym and aSym in self.markettimes :
             if self.markettimes[aSym].isAtMarketClose(cTime, looseTerm) :
                 return True
@@ -311,7 +311,7 @@ class MarketsOpHours(object):
         """
         cTime = self._formatCurTime(curTime)
 
-        aSym = filter(str.isalpha, symbol.encode('ascii', 'ignore'))
+        aSym = list(filter(str.isalpha, symbol.encode('ascii', 'ignore')))
         if aSym and aSym in self.markettimes :
             if self.markettimes[aSym].isMarketDayFinished(cTime, looseTerm) :
                 return True
@@ -339,7 +339,7 @@ class MarketsOpHours(object):
         """
         cTime = self._formatCurTime(curTime)
 
-        aSym = filter(str.isalpha, symbol.encode('ascii', 'ignore'))
+        aSym = list(filter(str.isalpha, symbol.encode('ascii', 'ignore')))
         if aSym and aSym in self.markettimes :
             if self.markettimes[aSym].isAtSessionOpen(cTime, looseTerm) :
                 return True
@@ -367,7 +367,7 @@ class MarketsOpHours(object):
         """
         cTime = self._formatCurTime(curTime)
 
-        aSym = filter(str.isalpha, symbol.encode('ascii', 'ignore'))
+        aSym = list(filter(str.isalpha, symbol.encode('ascii', 'ignore')))
         if aSym and aSym in self.markettimes :
             if self.markettimes[aSym].isAtSessionClose(cTime, looseTerm) :
                 return True
@@ -394,7 +394,7 @@ class MarketsOpHours(object):
         """
         cTime = self._formatCurTime(barTime)
 
-        aSym = filter(str.isalpha, symbol.encode('ascii', 'ignore'))
+        aSym = list(filter(str.isalpha, symbol.encode('ascii', 'ignore')))
         if aSym and aSym in self.markettimes :
             if self.markettimes[aSym].isSessionClosingBar(cTime, looseTerm) :
                 return True
@@ -422,7 +422,7 @@ class MarketsOpHours(object):
         """
         cTime = self._formatCurTime(curTime)
 
-        aSym = filter(str.isalpha, symbol.encode('ascii', 'ignore'))
+        aSym = list(filter(str.isalpha, symbol.encode('ascii', 'ignore')))
         # print(symbol, aSym)
         if aSym and aSym in self.markettimes :
             if self.markettimes[aSym].isSessionJustClose(cTime) :
@@ -451,7 +451,7 @@ class MarketsOpHours(object):
         """
         cTime = self._formatCurTime(curTime)
 
-        aSym = filter(str.isalpha, symbol.encode('ascii', 'ignore'))
+        aSym = list(filter(str.isalpha, symbol.encode('ascii', 'ignore')))
         # print(symbol, aSym)
         if aSym and aSym in self.markettimes :
             if self.markettimes[aSym].isMarketJustClose(cTime) :
@@ -480,7 +480,7 @@ class MarketsOpHours(object):
         """
         cTime = self._formatCurTime(barTime)
 
-        aSym = filter(str.isalpha, symbol.encode('ascii', 'ignore'))
+        aSym = list(filter(str.isalpha, symbol.encode('ascii', 'ignore')))
         if aSym and aSym in self.markettimes :
             if self.markettimes[aSym].isMarketClosingBar(cTime, looseTerm) :
                 return True

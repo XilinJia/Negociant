@@ -4,8 +4,8 @@
 展示如何执行参数优化。
 """
 
-from __future__ import division
-from __future__ import print_function
+
+
 
 
 from negociant.trader.app.ctaStrategy.lkBacktesting import BacktestingEngine, MINUTE_DB_NAME, OptimizationSetting
@@ -50,4 +50,4 @@ if __name__ == '__main__':
     # 多进程优化，耗时：89秒
     engine.runParallelOptimization(AtrRsiStrategy, setting)
     
-    print(u'耗时：%s' %(time.time()-start))
+    print('耗时：%s' %(time.time()-start))

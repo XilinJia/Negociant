@@ -14,7 +14,7 @@ https://opensource.org/licenses/MIT
 3. 将交易开拓者导出的历史数据载入到MongoDB中的函数
 4. 将OKEX下载的历史数据载入到MongoDB中的函数
 """
-from __future__ import print_function
+
 
 import csv
 from datetime import datetime, timedelta
@@ -34,7 +34,7 @@ def downloadEquityDailyBarts(self, symbol):
     """
     下载股票的日行情，symbol是股票代码
     """
-    print(u'开始下载%s日行情' %symbol)
+    print(('开始下载%s日行情' %symbol))
     
     # 查询数据库中已有数据的最后日期
     cl = self.dbClient[DAILY_DB_NAME][symbol]
@@ -75,15 +75,15 @@ def downloadEquityDailyBarts(self, symbol):
             flt = {'datetime': bar.datetime}
             self.dbClient[DAILY_DB_NAME][symbol].update_one(flt, {'$set':bar.__dict__}, upsert=True)            
         
-        print(u'%s下载完成' %symbol)
+        print(('%s下载完成' %symbol))
     else:
-        print(u'找不到合约%s' %symbol)
+        print(('找不到合约%s' %symbol))
 
 #----------------------------------------------------------------------
 def loadDailyQuandlCsv(fileName, dbName, symbol, dateForm='%Y-%m-%d'):
     """将Multicharts导出的csv格式的历史数据插入到Mongo数据库中"""
     start = time()
-    print(u'开始读取CSV文件%s中的数据插入到%s的%s中' %(fileName, dbName, symbol))
+    print(('开始读取CSV文件%s中的数据插入到%s的%s中' %(fileName, dbName, symbol)))
     
     # 锁定集合，并创建索引
     client = pymongo.MongoClient(globalSetting['mongoHost'], globalSetting['mongoPort']) 
@@ -111,13 +111,13 @@ def loadDailyQuandlCsv(fileName, dbName, symbol, dateForm='%Y-%m-%d'):
             collection.update_one(flt, {'$set':bar.__dict__}, upsert=True)  
             # print(bar.date, bar.time)
     
-    print(u'插入完毕，耗时：%s' % (time()-start))
+    print(('插入完毕，耗时：%s' % (time()-start)))
 
 #----------------------------------------------------------------------
 def loadMcCsv(fileName, dbName, symbol, dateForm='%Y-%m-%d'):
     """将Multicharts导出的csv格式的历史数据插入到Mongo数据库中"""
     start = time()
-    print(u'开始读取CSV文件%s中的数据插入到%s的%s中' %(fileName, dbName, symbol))
+    print(('开始读取CSV文件%s中的数据插入到%s的%s中' %(fileName, dbName, symbol)))
     
     # 锁定集合，并创建索引
     client = pymongo.MongoClient(globalSetting['mongoHost'], globalSetting['mongoPort']) 
@@ -144,13 +144,13 @@ def loadMcCsv(fileName, dbName, symbol, dateForm='%Y-%m-%d'):
             collection.update_one(flt, {'$set':bar.__dict__}, upsert=True)  
             # print(bar.date, bar.time)
     
-    print(u'插入完毕，耗时：%s' % (time()-start))
+    print(('插入完毕，耗时：%s' % (time()-start)))
 
 #----------------------------------------------------------------------
 def loadTbCsv(fileName, dbName, symbol):
     """将TradeBlazer导出的csv格式的历史分钟数据插入到Mongo数据库中"""
     start = time()
-    print(u'开始读取CSV文件%s中的数据插入到%s的%s中' %(fileName, dbName, symbol))
+    print(('开始读取CSV文件%s中的数据插入到%s的%s中' %(fileName, dbName, symbol)))
     
     # 锁定集合，并创建索引
     client = pymongo.MongoClient(globalSetting['mongoHost'], globalSetting['mongoPort'])
@@ -175,16 +175,16 @@ def loadTbCsv(fileName, dbName, symbol):
 
         flt = {'datetime': bar.datetime}
         collection.update_one(flt, {'$set':bar.__dict__}, upsert=True)  
-        print(bar.date, bar.time)
+        print((bar.date, bar.time))
     
-    print(u'插入完毕，耗时：%s' % (time()-start))
+    print(('插入完毕，耗时：%s' % (time()-start)))
     
     
  #----------------------------------------------------------------------
 def loadTbPlusCsv(fileName, dbName, symbol):
     """将TB极速版导出的csv格式的历史分钟数据插入到Mongo数据库中"""
     start = time()
-    print(u'开始读取CSV文件%s中的数据插入到%s的%s中' %(fileName, dbName, symbol)) 
+    print(('开始读取CSV文件%s中的数据插入到%s的%s中' %(fileName, dbName, symbol))) 
 
     # 锁定集合，并创建索引
     client = pymongo.MongoClient(globalSetting['mongoHost'], globalSetting['mongoPort'])
@@ -211,9 +211,9 @@ def loadTbPlusCsv(fileName, dbName, symbol):
         bar.openInterest = d[7]
         flt = {'datetime': bar.datetime}
         collection.update_one(flt, {'$set':bar.__dict__}, upsert=True)  
-        print(bar.date, bar.time)    
+        print((bar.date, bar.time))    
 
-    print(u'插入完毕，耗时：%s' % (time()-start))
+    print(('插入完毕，耗时：%s' % (time()-start)))
 
 #----------------------------------------------------------------------
 """
@@ -230,7 +230,7 @@ def loadTdxCsv(fileName, dbName, symbol):
     """将通达信导出的csv格式的历史分钟数据插入到Mongo数据库中"""
     start = time()
     date_correct = ""
-    print(u'开始读取CSV文件%s中的数据插入到%s的%s中' %(fileName, dbName, symbol))
+    print(('开始读取CSV文件%s中的数据插入到%s的%s中' %(fileName, dbName, symbol)))
     
     # 锁定集合，并创建索引
     client = pymongo.MongoClient(globalSetting['mongoHost'], globalSetting['mongoPort'])
@@ -262,7 +262,7 @@ def loadTdxCsv(fileName, dbName, symbol):
         flt = {'datetime': bar.datetime}
         collection.update_one(flt, {'$set':bar.__dict__}, upsert=True)  
     
-    print(u'插入完毕，耗时：%s' % (time()-start))
+    print(('插入完毕，耗时：%s' % (time()-start)))
 
 #----------------------------------------------------------------------
 """
@@ -275,7 +275,7 @@ def loadTdxLc1(fileName, dbName, symbol):
     """将通达信导出的lc1格式的历史分钟数据插入到Mongo数据库中"""
     start = time()
 
-    print(u'开始读取通达信Lc1文件%s中的数据插入到%s的%s中' %(fileName, dbName, symbol))
+    print(('开始读取通达信Lc1文件%s中的数据插入到%s的%s中' %(fileName, dbName, symbol)))
     
     # 锁定集合，并创建索引
     client = pymongo.MongoClient(globalSetting['mongoHost'], globalSetting['mongoPort'])
@@ -292,7 +292,7 @@ def loadTdxLc1(fileName, dbName, symbol):
     b=0
     e=32  
     dl = []
-    for i in xrange(no):
+    for i in range(no):
         a=unpack('hhfffffii',buf[b:e])
         b=b+32
         e=e+32
@@ -311,13 +311,13 @@ def loadTdxLc1(fileName, dbName, symbol):
         flt = {'datetime': bar.datetime}
         collection.update_one(flt, {'$set':bar.__dict__}, upsert=True)
     
-    print(u'插入完毕，耗时：%s' % (time()-start))
+    print(('插入完毕，耗时：%s' % (time()-start)))
 
 #----------------------------------------------------------------------
 def loadOKEXCsv(fileName, dbName, symbol):
     """将OKEX导出的csv格式的历史分钟数据插入到Mongo数据库中"""
     start = time()
-    print(u'开始读取CSV文件%s中的数据插入到%s的%s中' %(fileName, dbName, symbol))
+    print(('开始读取CSV文件%s中的数据插入到%s的%s中' %(fileName, dbName, symbol)))
 
     # 锁定集合，并创建索引
     client = pymongo.MongoClient(globalSetting['mongoHost'], globalSetting['mongoPort'])
@@ -346,7 +346,7 @@ def loadOKEXCsv(fileName, dbName, symbol):
 
             flt = {'datetime': bar.datetime}
             collection.update_one(flt, {'$set':bar.__dict__}, upsert=True)
-            print('%s \t %s' % (bar.date, bar.time))
+            print(('%s \t %s' % (bar.date, bar.time)))
 
-    print(u'插入完毕，耗时：%s' % (time()-start))
+    print(('插入完毕，耗时：%s' % (time()-start)))
     

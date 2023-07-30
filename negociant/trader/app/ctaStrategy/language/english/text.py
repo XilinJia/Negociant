@@ -1,20 +1,20 @@
 # encoding: UTF-8
 
-INIT = u'Init'
-START = u'Start'
-STOP = u'Stop'
+INIT = 'Init'
+START = 'Start'
+STOP = 'Stop'
 
-CTA_ENGINE_STARTED = u'CTA engine started.'
+CTA_ENGINE_STARTED = 'CTA engine started.'
 
-CTA_STRATEGY = u'CTA Strategy'
-LOAD_STRATEGY = u'Load Strategy'
-INIT_ALL = u'Init All'
-START_ALL = u'Start All'
-STOP_ALL = u'Stop All'
-SAVE_POSITION_DATA = u'Save Position Data'
+CTA_STRATEGY = 'CTA Strategy'
+LOAD_STRATEGY = 'Load Strategy'
+INIT_ALL = 'Init All'
+START_ALL = 'Start All'
+STOP_ALL = 'Stop All'
+SAVE_POSITION_DATA = 'Save Position Data'
 
-STRATEGY_LOADED = u'Strategy loaded.'
+STRATEGY_LOADED = 'Strategy loaded.'
 
-SAVE_POSITION_QUESTION = u'Do you want to save strategy position data into database?'
+SAVE_POSITION_QUESTION = 'Do you want to save strategy position data into database?'
 
-STRATEGY_STOPPED = u'Strategy stopped'
+STRATEGY_STOPPED = 'Strategy stopped'

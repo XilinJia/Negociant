@@ -23,7 +23,7 @@ from negociant.trader.lkBarsEngine import BarGenerator
 from negociant.trader.app.ctaStrategy.ctaArrayManager import ArrayManager
 from negociant.trader.app.ctaStrategy.ctaBase import DAILY_DB_NAME
 
-from SCC.PortSCC import SCC1, SCC2
+from .SCC.PortSCC import SCC1, SCC2
 
 ########################################################################
 class RsiSignal(LKCtaSignal):
@@ -113,7 +113,7 @@ class SMASignal(LKCtaSignal):
 class MySignals4Strategy(LKTargetPos):
     """跨时间周期交易策略"""
     className = 'MySignals4Strategy'
-    author = u'XJia'
+    author = 'XJia'
 
     # 策略参数
     initDays = 10           # 初始化数据所用的天数
@@ -146,7 +146,7 @@ class MySignals4Strategy(LKTargetPos):
     #----------------------------------------------------------------------
     def onInit(self):
         """初始化策略（必须由用户继承实现）"""
-        self.writeCtaLog(u'%s策略初始化' %self.name)
+        self.writeCtaLog('%s策略初始化' %self.name)
 
         # 载入历史数据，并采用回放计算的方式初始化策略数值
         initData = self.loadBar(self.initDays)
@@ -161,13 +161,13 @@ class MySignals4Strategy(LKTargetPos):
     #----------------------------------------------------------------------
     def onStart(self):
         """启动策略（必须由用户继承实现）"""
-        self.writeCtaLog(u'%s策略启动' %self.name)
+        self.writeCtaLog('%s策略启动' %self.name)
         self.putEvent()
 
     #----------------------------------------------------------------------
     def onStop(self):
         """停止策略（必须由用户继承实现）"""
-        self.writeCtaLog(u'%s策略停止' %self.name)
+        self.writeCtaLog('%s策略停止' %self.name)
         self.putEvent()
 
     #----------------------------------------------------------------------
@@ -211,8 +211,8 @@ class MySignals4Strategy(LKTargetPos):
        
     def recPosChange(self, price) :
         for i in range(len(self.signals)) :
-            print("recPosCh ", self.vtSymbol, self.signals[i].name, datetime.now().replace(second=0, microsecond=0),
-                self.signals[i].getSignalPos(), price)
+            print(("recPosCh ", self.vtSymbol, self.signals[i].name, datetime.now().replace(second=0, microsecond=0),
+                self.signals[i].getSignalPos(), price))
 
     #----------------------------------------------------------------------
     def calculateTargetPos(self):
@@ -234,6 +234,6 @@ class MySignals4Strategy(LKTargetPos):
     def onTrade(self, trade):
         # 发出状态更新事件
         for i in range(len(self.signals)) :
-            print("onTrade ", self.vtSymbol, self.signals[i].name, self.signals[i].getSignalPos())
+            print(("onTrade ", self.vtSymbol, self.signals[i].name, self.signals[i].getSignalPos()))
        
         self.putEvent()

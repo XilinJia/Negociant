@@ -1,10 +1,11 @@
 # encoding: UTF-8
 
 # 修改编码
-from __future__ import print_function
+
 import sys
+import importlib
 try:
-    reload(sys)  # Python 2
+    importlib.reload(sys)  # Python 2
     sys.setdefaultencoding('utf8')
 except NameError:
     pass         # Python 3
@@ -180,9 +181,9 @@ class Order(Resource):
         if not contract:
             return {'result_code':'error','message':'contract error'}
         
-        priceType_map = {'PRICETYPE_LIMITPRICE' : u'限价','PRICETYPE_MARKETPRICE' : u'市价','PRICETYPE_FAK' : u'FAK','PRICETYPE_FOK' : u'FOK'}
-        direction_map = {'DIRECTION_LONG' : u'多','DIRECTION_SHORT' : u'空'}
-        offset_map    = {'OFFSET_OPEN' : u'开仓',  'OFFSET_CLOSE' : u'平仓','OFFSET_CLOSETODAY' : u'平今','OFFSET_CLOSEYESTERDAY' : u'平昨'}
+        priceType_map = {'PRICETYPE_LIMITPRICE' : '限价','PRICETYPE_MARKETPRICE' : '市价','PRICETYPE_FAK' : 'FAK','PRICETYPE_FOK' : 'FOK'}
+        direction_map = {'DIRECTION_LONG' : '多','DIRECTION_SHORT' : '空'}
+        offset_map    = {'OFFSET_OPEN' : '开仓',  'OFFSET_CLOSE' : '平仓','OFFSET_CLOSETODAY' : '平今','OFFSET_CLOSEYESTERDAY' : '平昨'}
         
         req = VtOrderReq()
         req.symbol    = contract.symbol

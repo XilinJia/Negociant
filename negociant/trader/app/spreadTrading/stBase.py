@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-from __future__ import division
+
 
 from math import floor
 from datetime import datetime

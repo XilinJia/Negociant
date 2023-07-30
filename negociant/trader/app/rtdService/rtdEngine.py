@@ -59,7 +59,7 @@ class RtdEngine(object):
     #----------------------------------------------------------------------
     def registerEvent(self):
         """注册事件监听"""
-        for eventType in self.eventTypeDict.keys():
+        for eventType in list(self.eventTypeDict.keys()):
             self.eventEngine.register(eventType, self.processDataEvent)
         
     #----------------------------------------------------------------------
@@ -75,7 +75,7 @@ class RtdEngine(object):
         
         self.server.publish(event.type_, d)
         
-        self.writeLog(u'发布数据，类型%s，内容%s' %(event.type_, str(d)))
+        self.writeLog('发布数据，类型%s，内容%s' %(event.type_, str(d)))
         
     #----------------------------------------------------------------------
     def writeLog(self, content):

@@ -2,56 +2,56 @@
 
 # 默认空值
 EMPTY_STRING = ''
-EMPTY_UNICODE = u''
+EMPTY_UNICODE = ''
 EMPTY_INT = 0
 EMPTY_FLOAT = 0.0
 
 # 方向常量
-DIRECTION_NONE = u'none'
-DIRECTION_LONG = u'long'
-DIRECTION_SHORT = u'short'
-DIRECTION_UNKNOWN = u'unknown'
-DIRECTION_NET = u'net'
-DIRECTION_SELL = u'sell'      # IB接口
-DIRECTION_COVEREDSHORT = u'covered short'    # 证券期权
+DIRECTION_NONE = 'none'
+DIRECTION_LONG = 'long'
+DIRECTION_SHORT = 'short'
+DIRECTION_UNKNOWN = 'unknown'
+DIRECTION_NET = 'net'
+DIRECTION_SELL = 'sell'      # IB接口
+DIRECTION_COVEREDSHORT = 'covered short'    # 证券期权
 
 # 开平常量
-OFFSET_NONE = u'none'
-OFFSET_OPEN = u'open'
-OFFSET_CLOSE = u'close'
-OFFSET_CLOSETODAY = u'close today'
-OFFSET_CLOSEYESTERDAY = u'close yesterday'
-OFFSET_UNKNOWN = u'unknown'
+OFFSET_NONE = 'none'
+OFFSET_OPEN = 'open'
+OFFSET_CLOSE = 'close'
+OFFSET_CLOSETODAY = 'close today'
+OFFSET_CLOSEYESTERDAY = 'close yesterday'
+OFFSET_UNKNOWN = 'unknown'
 
 # 状态常量
-STATUS_NOTTRADED = u'pending'
-STATUS_PARTTRADED = u'partial filled'
-STATUS_ALLTRADED = u'filled'
-STATUS_CANCELLED = u'cancelled'
-STATUS_REJECTED = u'rejected'
-STATUS_UNKNOWN = u'unknown'
+STATUS_NOTTRADED = 'pending'
+STATUS_PARTTRADED = 'partial filled'
+STATUS_ALLTRADED = 'filled'
+STATUS_CANCELLED = 'cancelled'
+STATUS_REJECTED = 'rejected'
+STATUS_UNKNOWN = 'unknown'
 
 # 合约类型常量
-PRODUCT_EQUITY = u'equity'
-PRODUCT_FUTURES = u'futures'
-PRODUCT_OPTION = u'option'
-PRODUCT_INDEX = u'index'
-PRODUCT_COMBINATION = u'combination'
-PRODUCT_FOREX = u'forex'
-PRODUCT_UNKNOWN = u'unknown'
-PRODUCT_SPOT = u'spot'
-PRODUCT_DEFER = u'defer'
+PRODUCT_EQUITY = 'equity'
+PRODUCT_FUTURES = 'futures'
+PRODUCT_OPTION = 'option'
+PRODUCT_INDEX = 'index'
+PRODUCT_COMBINATION = 'combination'
+PRODUCT_FOREX = 'forex'
+PRODUCT_UNKNOWN = 'unknown'
+PRODUCT_SPOT = 'spot'
+PRODUCT_DEFER = 'defer'
 PRODUCT_NONE = 'none'
 
 # 价格类型常量
-PRICETYPE_LIMITPRICE = u'limit order'
-PRICETYPE_MARKETPRICE = u'market order'
-PRICETYPE_FAK = u'FAK'
-PRICETYPE_FOK = u'FOK'
+PRICETYPE_LIMITPRICE = 'limit order'
+PRICETYPE_MARKETPRICE = 'market order'
+PRICETYPE_FAK = 'FAK'
+PRICETYPE_FOK = 'FOK'
 
 # 期权类型
-OPTION_CALL = u'call'
-OPTION_PUT = u'put'
+OPTION_CALL = 'call'
+OPTION_PUT = 'put'
 
 # 交易所类型
 EXCHANGE_SSE = 'SSE'       # 上交所

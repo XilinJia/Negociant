@@ -4,7 +4,7 @@
 算法交易引擎
 '''
 
-from __future__ import division
+
 import os
 import importlib
 
@@ -95,7 +95,7 @@ class AlgoEngine(object):
     #----------------------------------------------------------------------
     def processTimerEvent(self, event):
         """定时事件"""
-        for algo in self.algoDict.values():
+        for algo in list(self.algoDict.values()):
             algo.updateTimer()
     
     #----------------------------------------------------------------------
@@ -119,7 +119,7 @@ class AlgoEngine(object):
     #----------------------------------------------------------------------
     def stopAll(self):
         """全部停止"""
-        l = self.algoDict.keys()
+        l = list(self.algoDict.keys())
         for algoName in l:
             self.stopAlgo(algoName)
     
@@ -128,7 +128,7 @@ class AlgoEngine(object):
         """"""
         contract = self.mainEngine.getContract(vtSymbol)
         if not contract:
-            self.writeLog(u'%s订阅行情失败，找不到合约%s' %(algo.algoName, vtSymbol))
+            self.writeLog('%s订阅行情失败，找不到合约%s' %(algo.algoName, vtSymbol))
             return        
 
         # 如果vtSymbol已存在于字典，说明已经订阅过
@@ -153,7 +153,7 @@ class AlgoEngine(object):
         """发单"""
         contract = self.mainEngine.getContract(vtSymbol)
         if not contract:
-            self.writeLog(u'%s委托下单失败，找不到合约：%s' %(algo.algoName, vtSymbol))
+            self.writeLog('%s委托下单失败，找不到合约：%s' %(algo.algoName, vtSymbol))
 
         req = VtOrderReq()
         req.vtSymbol = vtSymbol
@@ -194,7 +194,7 @@ class AlgoEngine(object):
         """撤单"""
         order = self.mainEngine.getOrder(vtOrderID)
         if not order:
-            self.writeLog(u'%s委托撤单失败，找不到委托：%s' %(algo.algoName, vtOrderID))
+            self.writeLog('%s委托撤单失败，找不到委托：%s' %(algo.algoName, vtOrderID))
             return
 
         req = VtCancelOrderReq()
@@ -274,7 +274,7 @@ class AlgoEngine(object):
         """查询行情"""
         tick = self.mainEngine.getTick(vtSymbol)
         if not tick:
-            self.writeLog(u'%s查询行情失败，找不到报价：%s' %(algo.algoName, vtSymbol))
+            self.writeLog('%s查询行情失败，找不到报价：%s' %(algo.algoName, vtSymbol))
             return            
             
         return tick
@@ -284,7 +284,7 @@ class AlgoEngine(object):
         """查询合约"""
         contract = self.mainEngine.getContract(vtSymbol)
         if not contract:
-            self.writeLog(u'%s查询合约失败，找不到报价：%s' %(algo.algoName, vtSymbol))
+            self.writeLog('%s查询合约失败，找不到报价：%s' %(algo.algoName, vtSymbol))
             return            
         
         return contract
@@ -344,7 +344,7 @@ class AlgoEngine(object):
         
         self.rpcServer = AlgoRpcServer(self, repPort, pubPort)
         self.rpcServer.start()
-        self.writeLog(u'算法交易RPC服务启动成功，REP端口:%s，PUB端口:%s' %(repPort, pubPort))
+        self.writeLog('算法交易RPC服务启动成功，REP端口:%s，PUB端口:%s' %(repPort, pubPort))
 
 
 ########################################################################

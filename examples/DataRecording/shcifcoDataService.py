@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-from __future__ import print_function
+
 import json
 import random
 
@@ -102,14 +102,14 @@ def downMinuteBarBySymbol(symbol, num, start, hotSymbol=''):
     else :
         print("Market day not finished, day bar left unfinalized")
 
-    print(u'Contract %s downloaded %s - %s' %(symbol, generateVtBar(l[0]).datetime,
+    print('Contract %s downloaded %s - %s' %(symbol, generateVtBar(l[0]).datetime,
                                                   generateVtBar(l[-1]).datetime))
 
 #----------------------------------------------------------------------
 def downloadAllMinuteBar(num):
     """下载所有配置中的合约的分钟线数据"""
     print('-' * 50)
-    print(u'开始下载合约分钟线数据')
+    print('开始下载合约分钟线数据')
     print('-' * 50)
 
     drConfig = open("DR_setting.json")
@@ -127,7 +127,7 @@ def downloadAllMinuteBar(num):
         sleep(1)
 
     print('-' * 50)
-    print(u'合约分钟线数据下载完成')
+    print('合约分钟线数据下载完成')
     print('-' * 50)
 
 

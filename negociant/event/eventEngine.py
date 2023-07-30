@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 # 系统模块
-from __future__ import print_function
+
 from queue import Queue, Empty
 from threading import Thread
 from time import sleep
@@ -340,7 +340,7 @@ def test():
     from qtpy.QtCore import QCoreApplication
     
     def simpletest(event):
-        print(u'处理每秒触发的计时器事件：{}'.format(str(datetime.now())))
+        print('处理每秒触发的计时器事件：{}'.format(str(datetime.now())))
     
     app = QCoreApplication(sys.argv)
     

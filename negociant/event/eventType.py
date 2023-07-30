@@ -10,7 +10,7 @@
 
 建议将所有的常量定义放在该文件中，便于检查是否存在重复的现象。
 '''
-from __future__ import print_function
+
 
 
 EVENT_TIMER = 'eTimer'                  # 计时器事件，每隔1秒发送一次
@@ -24,21 +24,21 @@ def test():
     
     global_dict = globals()    
     
-    for key, value in global_dict.items():
+    for key, value in list(global_dict.items()):
         if '__' not in key:                       # 不检查python内置对象
             if value in check_dict:
                 check_dict[value].append(key)
             else:
                 check_dict[value] = [key]
             
-    for key, value in check_dict.items():
+    for key, value in list(check_dict.items()):
         if len(value)>1:
-            print(u'存在重复的常量定义:{}'.format(str(key)))
+            print('存在重复的常量定义:{}'.format(str(key)))
             for name in value:
                 print(name)
             print('')
         
-    print(u'测试完毕')
+    print('测试完毕')
     
 
 # 直接运行脚本可以进行测试

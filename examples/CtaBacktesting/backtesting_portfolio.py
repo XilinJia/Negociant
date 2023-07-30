@@ -4,7 +4,7 @@
 # In[1]:
 
 
-get_ipython().magic(u'matplotlib inline')
+get_ipython().magic('matplotlib inline')
 
 from negociant.trader.app.ctaStrategy.lkBacktesting import BacktestingEngine, MINUTE_DB_NAME
 

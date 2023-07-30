@@ -240,7 +240,7 @@ class BasicMonitor(QtWidgets.QTableWidget):
     def setHeaderDict(self, headerDict):
         """设置表头有序字典"""
         self.headerDict = headerDict
-        self.headerList = headerDict.keys()
+        self.headerList = list(headerDict.keys())
         
     #----------------------------------------------------------------------
     def setDataKey(self, dataKey):
@@ -270,7 +270,7 @@ class BasicMonitor(QtWidgets.QTableWidget):
         self.setColumnCount(col)
         
         # 设置列表头
-        labels = [d['chinese'] for d in self.headerDict.values()]
+        labels = [d['chinese'] for d in list(self.headerDict.values())]
         self.setHorizontalHeaderLabels(labels)
         
         # 关闭左边的垂直表头
@@ -382,7 +382,7 @@ class BasicMonitor(QtWidgets.QTableWidget):
         try:
             #if not path.isEmpty():
             if path:
-                with open(unicode(path), 'wb') as f:
+                with open(str(path), 'wb') as f:
                     writer = csv.writer(f)
                     
                     # 保存标签
@@ -745,7 +745,7 @@ class TradingWidget(QtWidgets.QFrame):
         labelDirection = QtWidgets.QLabel(vtText.DIRECTION)
         labelOffset = QtWidgets.QLabel(vtText.OFFSET)
         labelPrice = QtWidgets.QLabel(vtText.PRICE)
-        self.checkFixed = QtWidgets.QCheckBox(u'')  # 价格固定选择框
+        self.checkFixed = QtWidgets.QCheckBox('')  # 价格固定选择框
         labelVolume = QtWidgets.QLabel(vtText.VOLUME)
         labelPriceType = QtWidgets.QLabel(vtText.PRICE_TYPE)
         labelExchange = QtWidgets.QLabel(vtText.EXCHANGE) 
@@ -1311,7 +1311,7 @@ class SettingEditor(QtWidgets.QWidget):
         self.setWindowTitle(vtText.EDIT_SETTING)
         
         self.comboFileName = QtWidgets.QComboBox()
-        self.comboFileName.addItems(jsonPathDict.keys())
+        self.comboFileName.addItems(list(jsonPathDict.keys()))
         
         buttonLoad = QtWidgets.QPushButton(vtText.LOAD)
         buttonSave = QtWidgets.QPushButton(vtText.SAVE)
@@ -1367,7 +1367,7 @@ class SettingEditor(QtWidgets.QWidget):
         """显示"""
         # 更新配置文件下拉框
         self.comboFileName.clear()
-        self.comboFileName.addItems(jsonPathDict.keys())
+        self.comboFileName.addItems(list(jsonPathDict.keys()))
         
         # 显示界面
         super(SettingEditor, self).show()

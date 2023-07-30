@@ -165,7 +165,7 @@ def createProcess(cbName, cbArgsTypeList, cbArgsValueList):
             fprocess.write("\t"+ "dict error;\n")
 
             struct = structDict[type_]
-            for key in struct.keys():
+            for key in list(struct.keys()):
                 if struct[key] == "string":
                     fprocess.write("\t"+ 'error["' + key + '"] = boost::locale::conv::to_utf<char>(task_error.' + key + ', std::string("GB2312"));\n')
                 else:
@@ -180,7 +180,7 @@ def createProcess(cbName, cbArgsTypeList, cbArgsValueList):
             fprocess.write("\t"+ "dict data;\n")
 
             struct = structDict[type_]
-            for key in struct.keys():
+            for key in list(struct.keys()):
                 if struct[key] == "string":
                     fprocess.write("\t"+ 'data["' + key + '"] = boost::locale::conv::to_utf<char>(task_data.' + key + ', std::string("GB2312"));\n')
                 else:
@@ -243,7 +243,7 @@ def createFunction(fcName, fcArgsTypeList, fcArgsValueList):
     ffunction.write('\t' + type_ +' myreq = ' + type_ + '();\n')
     ffunction.write('\tmemset(&myreq, 0, sizeof(myreq));\n')
 
-    for key, value in struct.items():
+    for key, value in list(struct.items()):
         if value == 'string':
             line = '\tgetStr(req, "' + key + '", myreq.' + key + ');\n'
         elif value == 'char':

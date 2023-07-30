@@ -8,7 +8,7 @@ https://opensource.org/licenses/MIT
 import sys, inspect
 
 from negociant.trader.app.ctaStrategy.lkCtaTemplate import LKSCC
-from SCC import PortPSCC
+from .SCC import PortPSCC
 
 ########################################################################
 class PSCCStrategy(LKSCC):
@@ -23,7 +23,7 @@ class PSCCStrategy(LKSCC):
         strats = inspect.getmembers(sys.modules['negociant.trader.app.ctaStrategy.strategy.SCC.PortPSCC'], inspect.isclass)
         for strat in strats :
             if strat[0] != 'SCCSignal' :
-                print("Attach strat: " + strat[0] )
+                print(("Attach strat: " + strat[0] ))
                 self.signals.append(strat[1](self))
 
         self.setSignalCapitals(boostR=2.5)                

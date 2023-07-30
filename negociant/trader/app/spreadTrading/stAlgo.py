@@ -12,9 +12,9 @@ from negociant.trader.vtConstant import (EMPTY_INT, EMPTY_FLOAT,
 ########################################################################
 class StAlgoTemplate(object):
     """价差算法交易模板"""
-    MODE_LONGSHORT = u'双向'
-    MODE_LONGONLY = u'做多'
-    MODE_SHORTONLY = u'做空'
+    MODE_LONGSHORT = '双向'
+    MODE_LONGONLY = '做多'
+    MODE_SHORTONLY = '做空'
 
     SPREAD_LONG = 1
     SPREAD_SHORT = 2
@@ -159,7 +159,7 @@ class SniperAlgo(StAlgoTemplate):
         """Constructor"""
         super(SniperAlgo, self).__init__(algoEngine, spread)
         
-        self.algoName = u'Sniper'
+        self.algoName = 'Sniper'
         self.quoteInterval = 2      # 主动腿报价撤单再发前等待的时间
         self.quoteCount = 0         # 报价计数
         self.hedgeInterval = 2      # 对冲腿对冲撤单再发前的等待时间
@@ -199,13 +199,13 @@ class SniperAlgo(StAlgoTemplate):
                 spread.netPos < self.maxPosSize and
                 spread.askPrice <= self.buyPrice):
                 self.quoteActiveLeg(self.SPREAD_LONG)
-                self.writeLog(u'买入开仓')
+                self.writeLog('买入开仓')
             
             # 卖出
             elif (spread.netPos > 0 and
                   spread.bidPrice >= self.sellPrice):
                 self.quoteActiveLeg(self.SPREAD_SHORT)
-                self.writeLog(u'卖出平仓')
+                self.writeLog('卖出平仓')
         
         # 允许做空
         if self.mode == self.MODE_LONGSHORT or self.mode == self.MODE_SHORTONLY:
@@ -214,13 +214,13 @@ class SniperAlgo(StAlgoTemplate):
                 spread.netPos > -self.maxPosSize and
                 spread.bidPrice >= self.shortPrice):
                 self.quoteActiveLeg(self.SPREAD_SHORT)
-                self.writeLog(u'卖出开仓')
+                self.writeLog('卖出开仓')
             
             # 平空
             elif (spread.netPos < 0 and
                   spread.askPrice <= self.coverPrice):
                 self.quoteActiveLeg(self.SPREAD_LONG)
-                self.writeLog(u'买入平仓')
+                self.writeLog('买入平仓')
     
     #----------------------------------------------------------------------
     def updateSpreadPos(self, spread):
@@ -295,23 +295,23 @@ class SniperAlgo(StAlgoTemplate):
         # 做多检查
         if self.mode != self.MODE_SHORTONLY:
             if self.buyPrice >= self.sellPrice:
-                self.writeLog(u'启动失败，允许多头交易时BuyPrice必须小于SellPrice')
+                self.writeLog('启动失败，允许多头交易时BuyPrice必须小于SellPrice')
                 return False
             
         # 做空检查
         if self.mode != self.MODE_LONGONLY:
             if self.shortPrice <= self.coverPrice:
-                self.writeLog(u'启动失败，允许空头交易时ShortPrice必须大于CoverPrice')
+                self.writeLog('启动失败，允许空头交易时ShortPrice必须大于CoverPrice')
                 return False
             
         # 多空检查
         if self.mode == self.MODE_LONGSHORT:
             if self.buyPrice >= self.coverPrice:
-                self.writeLog(u'启动失败，允许双向交易时BuyPrice必须小于CoverPrice')
+                self.writeLog('启动失败，允许双向交易时BuyPrice必须小于CoverPrice')
                 return False
             
             if self.shortPrice <= self.sellPrice:
-                self.writeLog(u'启动失败，允许双向交易时ShortPrice必须大于SellPrice')
+                self.writeLog('启动失败，允许双向交易时ShortPrice必须大于SellPrice')
                 return False
             
         return True
@@ -332,7 +332,7 @@ class SniperAlgo(StAlgoTemplate):
         self.hedgeCount = 0
             
         self.active = True
-        self.writeLog(u'算法启动')
+        self.writeLog('算法启动')
         
         return self.active
     
@@ -344,7 +344,7 @@ class SniperAlgo(StAlgoTemplate):
             self.cancelAllOrders()
            
         self.active = False   
-        self.writeLog(u'算法停止')
+        self.writeLog('算法停止')
         
         return self.active
     
@@ -412,7 +412,7 @@ class SniperAlgo(StAlgoTemplate):
         leg = self.legDict[self.activeVtSymbol]
         legVolume = spreadVolume * leg.ratio        
         self.sendLegOrder(leg, legVolume)
-        self.writeLog(u'发出新的主动腿%s狙击单' %self.activeVtSymbol)
+        self.writeLog('发出新的主动腿%s狙击单' %self.activeVtSymbol)
         
         self.quoteCount = 0         # 重置主动腿报价撤单等待计数
 
@@ -430,12 +430,12 @@ class SniperAlgo(StAlgoTemplate):
         leg = self.legDict[vtSymbol]
         
         self.sendLegOrder(leg, legVolume)
-        self.writeLog(u'发出新的被动腿%s对冲单' %vtSymbol)
+        self.writeLog('发出新的被动腿%s对冲单' %vtSymbol)
         
     #----------------------------------------------------------------------
     def hedgeAllPassiveLegs(self):
         """执行所有被动腿对冲"""
-        for vtSymbol in self.hedgingTaskDict.keys():
+        for vtSymbol in list(self.hedgingTaskDict.keys()):
             self.hedgePassiveLeg(vtSymbol)
         
         self.hedgeCount = 0         # 重置被动腿对冲撤单等待计数
@@ -444,7 +444,7 @@ class SniperAlgo(StAlgoTemplate):
     def newActiveLegTrade(self, vtSymbol, direction, volume):
         """新的主动腿成交"""
         # 输出日志
-        self.writeLog(u'主动腿%s成交，方向%s，数量%s' %(vtSymbol, direction, volume))        
+        self.writeLog('主动腿%s成交，方向%s，数量%s' %(vtSymbol, direction, volume))        
         
         # 将主动腿成交带上方向
         if direction == DIRECTION_SHORT:
@@ -485,7 +485,7 @@ class SniperAlgo(StAlgoTemplate):
                 del self.hedgingTaskDict[vtSymbol]
                 
         # 输出日志
-        self.writeLog(u'被动腿%s成交，方向%s，数量%s' %(vtSymbol, direction, volume))
+        self.writeLog('被动腿%s成交，方向%s，数量%s' %(vtSymbol, direction, volume))
                 
     #----------------------------------------------------------------------
     def cancelLegOrder(self, vtSymbol):
@@ -500,16 +500,16 @@ class SniperAlgo(StAlgoTemplate):
         for vtOrderID in orderList:
             self.algoEngine.cancelOrder(vtOrderID)
             
-        self.writeLog(u'撤单%s的所有委托' %vtSymbol)
+        self.writeLog('撤单%s的所有委托' %vtSymbol)
             
     #----------------------------------------------------------------------
     def cancelAllOrders(self):
         """撤销全部委托"""
-        for orderList in self.legOrderDict.values():
+        for orderList in list(self.legOrderDict.values()):
             for vtOrderID in orderList:
                 self.algoEngine.cancelOrder(vtOrderID)
         
-        self.writeLog(u'全部撤单')
+        self.writeLog('全部撤单')
     
     #----------------------------------------------------------------------
     def cancelAllPassiveLegOrders(self):
@@ -523,4 +523,4 @@ class SniperAlgo(StAlgoTemplate):
 
         # 只有确实发出撤单委托时，才输出信息        
         if cancelPassive:
-            self.writeLog(u'被动腿全撤')
+            self.writeLog('被动腿全撤')

@@ -42,20 +42,20 @@ class CtaValueMonitor(QtWidgets.QTableWidget):
         """更新数据"""
         if not self.inited:
             self.setColumnCount(len(data))
-            self.setHorizontalHeaderLabels(data.keys())
+            self.setHorizontalHeaderLabels(list(data.keys()))
             
             col = 0
-            for k, v in data.items():
-                cell = QtWidgets.QTableWidgetItem(unicode(v))
+            for k, v in list(data.items()):
+                cell = QtWidgets.QTableWidgetItem(str(v))
                 self.keyCellDict[k] = cell
                 self.setItem(0, col, cell)
                 col += 1
             
             self.inited = True
         else:
-            for k, v in data.items():
+            for k, v in list(data.items()):
                 cell = self.keyCellDict[k]
-                cell.setText(unicode(v))
+                cell.setText(str(v))
 
 
 ########################################################################

@@ -9,9 +9,10 @@ https://opensource.org/licenses/MIT
 
 # 重载sys模块，设置默认字符串编码方式为utf8
 import sys
+import importlib
 
 try:
-    reload(sys)  # Python 2
+    importlib.reload(sys)  # Python 2
     sys.setdefaultencoding('utf8')
 except NameError:
     pass         # Python 3

@@ -215,7 +215,7 @@ class BarGenerator(object):
                 if self.minBar :
                     self.minBar.updateFromTick(tick)
         else :
-            print("** bad tick data, ignored: ", tick)
+            print(("** bad tick data, ignored: ", tick))
         
 
     def updateWithSecondBar(self, bar) :
@@ -273,7 +273,7 @@ class BarGenerator(object):
         """手动强制立即完成K线合成"""
         # finalize 1-minute, x-minute, and day bars
         if self.minBar and self.minBar.bar :
-            print("Force generate bars ", self.minBar.bar.datetime)
+            print(("Force generate bars ", self.minBar.bar.datetime))
             self.minBar.finalizeBar()
         else :
             print("**wrong minBar in generate")
@@ -282,7 +282,7 @@ class BarGenerator(object):
         """手动强制立即完成K线合成"""
         # finalize 1-minute, x-minute, and day bars
         if self.minBar and self.minBar.bar :
-            print("Finalize day bars ", self.minBar.bar.datetime)
+            print(("Finalize day bars ", self.minBar.bar.datetime))
             self.minBar.finalizeBar()
         else :
             print("**wrong minBar in finalizeDay")
@@ -388,7 +388,7 @@ class SecondBar(XBar) :
     def updateFromTick(self, tick) :
 
         if self.lastTick and abs(tick.lastPrice - self.lastTick.lastPrice) > 0.1 * self.lastTick.lastPrice :
-            print("**Tick data possibly invalid, ignored: ", tick.lastPrice, self.lastTick.lastPrice)
+            print(("**Tick data possibly invalid, ignored: ", tick.lastPrice, self.lastTick.lastPrice))
             self.lastTick = tick
             return
 
@@ -507,7 +507,7 @@ class MinuteBar(XBar) :
     def updateFromTick(self, tick) :
 
         if self.lastTick and abs(tick.lastPrice - self.lastTick.lastPrice) > 0.1 * self.lastTick.lastPrice :
-            print("**Tick data possibly invalid, ignored: ", tick.lastPrice, self.lastTick.lastPrice)
+            print(("**Tick data possibly invalid, ignored: ", tick.lastPrice, self.lastTick.lastPrice))
             self.lastTick = tick
             return
 
@@ -696,7 +696,7 @@ class DayBar(XBar) :
                 if (barTime == self.startTime or barTime == self.auxStartTime):
                     self.bar = VtBarData()
                     
-                    print("A day bar started ", bar.vtSymbol, " ", bar.datetime)
+                    print(("A day bar started ", bar.vtSymbol, " ", bar.datetime))
                     self.bar.vtSymbol = bar.vtSymbol
                     self.bar.symbol = bar.symbol
                     self.bar.exchange = bar.exchange
@@ -726,7 +726,7 @@ class DayBar(XBar) :
 
     def finalizeBar(self) :
         if self.bar :
-            print("Finalize day bar: ", self.bar.vtSymbol, self.bar.datetime)
+            print(("Finalize day bar: ", self.bar.vtSymbol, self.bar.datetime))
             self.updateAll()
             self.bar = None
         

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-from __future__ import print_function
+
 import json
 import time
 import datetime
@@ -58,7 +58,7 @@ def downMinuteBarBySymbol(symbol, num):
     
     l = api.getHisBar(symbol, num, period=PERIOD_1MIN)
     if not l:
-        print(u'%s数据下载失败' %symbol)
+        print('%s数据下载失败' %symbol)
         return
     
     for d in l:
@@ -70,14 +70,14 @@ def downMinuteBarBySymbol(symbol, num):
     end = time.time()
     cost = (end - start) * 1000
 
-    print(u'合约%s数据下载完成%s - %s，耗时%s毫秒' %(symbol, generateVtBar(l[0]).datetime,
+    print('合约%s数据下载完成%s - %s，耗时%s毫秒' %(symbol, generateVtBar(l[0]).datetime,
                                                   generateVtBar(l[-1]).datetime, cost))
 
 #----------------------------------------------------------------------
 def downloadAllMinuteBar(num):
     """下载所有配置中的合约的分钟线数据"""
     print('-' * 50)
-    print(u'开始下载合约分钟线数据')
+    print('开始下载合约分钟线数据')
     print('-' * 50)
     
     for symbol in SYMBOLS:
@@ -85,7 +85,7 @@ def downloadAllMinuteBar(num):
         time.sleep(1)
 
     print('-' * 50)
-    print(u'合约分钟线数据下载完成')
+    print('合约分钟线数据下载完成')
     print('-' * 50)
 
 

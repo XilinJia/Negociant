@@ -20,7 +20,7 @@ import copy
 import traceback
 from collections import OrderedDict
 from datetime import datetime, timedelta, time
-from Queue import Queue, Empty
+from queue import Queue, Empty
 from threading import Thread
 from pymongo.errors import DuplicateKeyError
 
@@ -109,7 +109,7 @@ class DrEngine(object):
             # 主力合约记录配置
             if 'active' in drSetting:
                 d = drSetting['active']
-                self.activeSymbolDict = {vtSymbol:activeSymbol for activeSymbol, vtSymbol in d.items()}
+                self.activeSymbolDict = {vtSymbol:activeSymbol for activeSymbol, vtSymbol in list(d.items())}
 
             # Tick记录配置
             if 'tick' in drSetting:
@@ -190,7 +190,7 @@ class DrEngine(object):
 
                     bm = self.bgDict[vtSymbol]
                     daysBack = self.marketHours.weekdayOffset[datetime.today().weekday()]
-                    print("init for day bar from : ", daysBack, todayDate()-timedelta(daysBack))
+                    print(("init for day bar from : ", daysBack, todayDate()-timedelta(daysBack)))
                     initData = self.loadBar(MINUTE_DB_NAME, vtSymbol, daysBack)
                     bm.fillDayBarsWithMinute(initData)
                     if self.marketHours.isMarketDayFinished(vtSymbol) :
@@ -242,9 +242,9 @@ class DrEngine(object):
 
                 self.lastTick[tick.vtSymbol] = tick
             else :
-                print("processTickEvent bad tick, ignored: ", tick.time, " ", tick.vtSymbol, " ", tick.lastPrice)
+                print(("processTickEvent bad tick, ignored: ", tick.time, " ", tick.vtSymbol, " ", tick.lastPrice))
         else :
-            print("processTickEvent off-hour, ignroed: ", tick.time, " ", tick.vtSymbol, " ", tick.lastPrice)
+            print(("processTickEvent off-hour, ignroed: ", tick.time, " ", tick.vtSymbol, " ", tick.lastPrice))
 
     
     #----------------------------------------------------------------------
@@ -272,13 +272,13 @@ class DrEngine(object):
             elif (self.marketHours.isMarketJustClose(vtSymbol, curTime=self.lastTimerTime) and 
                 (not self.marketHours.isMarketJustClose(vtSymbol, curTime=currentTime))) :
                 bg = self.bgDict.get(vtSymbol, None)
-                print(vtSymbol, currentTime, "force finish day ")
+                print((vtSymbol, currentTime, "force finish day "))
                 bg.finalizeDay()
                 
             elif (self.marketHours.isSessionJustClose(vtSymbol, curTime=self.lastTimerTime) and 
                 (not self.marketHours.isSessionJustClose(vtSymbol, curTime=currentTime))) :
                 bg = self.bgDict.get(vtSymbol, None)
-                print(vtSymbol, currentTime, "force finish session ")
+                print((vtSymbol, currentTime, "force finish session "))
                 bg.generate()
 
         # 记录新的时间
@@ -308,7 +308,7 @@ class DrEngine(object):
         bm = self.bgDict.get(vtSymbol, None)
         lastBar = bm.getLastMinuteBar()
         if not lastBar :
-            print("First bar in BarsManager", bTime)
+            print(("First bar in BarsManager", bTime))
             return True
         lastBarTime = lastBar.datetime
 
@@ -319,7 +319,7 @@ class DrEngine(object):
         if bTime == lastBarTime + timedelta(minutes=1) :
             return True
 
-        print("Recording minute bars not in seccession: ", vtSymbol, lastBarTime, bTime)
+        print(("Recording minute bars not in seccession: ", vtSymbol, lastBarTime, bTime))
         return False
 
 
@@ -327,7 +327,7 @@ class DrEngine(object):
         bm = self.bgDict.get(vtSymbol, None)
         lastBar = bm.getLastMinuteBar()
         if not lastBar :
-            print("Last bar missing in BarsManager ", vtSymbol, str(cTime))
+            print(("Last bar missing in BarsManager ", vtSymbol, str(cTime)))
             return True
 
         lastBarTime = lastBar.datetime
@@ -335,7 +335,7 @@ class DrEngine(object):
         if cTime == (lastBarTime + timedelta(minutes=1)).time() :
             return True
 
-        print("** minute bars missing: ", vtSymbol, str(lastBarTime), str(cTime))
+        print(("** minute bars missing: ", vtSymbol, str(lastBarTime), str(cTime)))
         return False
 
     #----------------------------------------------------------------------
@@ -368,7 +368,7 @@ class DrEngine(object):
         flt = {'datetime': bar.datetime}
         l = self.mainEngine.dbQuery(MINUTE_DB_NAME, vtSymbol, flt)
         if l :
-            print("onDayBar updating bar: ", l)
+            print(("onDayBar updating bar: ", l))
         self.mainEngine.dbUpdate(MINUTE_DB_NAME, vtSymbol, bar.__dict__, flt, True)
 
         if vtSymbol in self.activeSymbolDict:
@@ -389,7 +389,7 @@ class DrEngine(object):
         flt = {'date': bar.date}
         l = self.mainEngine.dbQuery(DAILY_DB_NAME, vtSymbol, flt)
         if l :
-            print("onDayBar updating bar: ", l)
+            print(("onDayBar updating bar: ", l))
         self.mainEngine.dbUpdate(DAILY_DB_NAME, vtSymbol, bar.__dict__, flt, True)
         
         if vtSymbol in self.activeSymbolDict:
@@ -430,7 +430,7 @@ class DrEngine(object):
                 try:
                     self.mainEngine.dbInsert(dbName, collectionName, d)
                 except DuplicateKeyError:
-                    self.writeDrLog(u'键值重复插入失败，报错信息：%s' %traceback.format_exc())
+                    self.writeDrLog('键值重复插入失败，报错信息：%s' %traceback.format_exc())
             except Empty:
                 pass
             

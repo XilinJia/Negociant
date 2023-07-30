@@ -9,12 +9,14 @@ Negociant is an automated trading platform specialized in trading the Chinese fu
 
 Note: this is retired version that is no longer supported.
 
+Update: all Python codes are now in Python 3
+
 ---
 ### Quick Start
 
 1. Prepare a computer with Ubuntu 20.04 (64-bit) installed.
 
-2. Install [Anaconda 5.2.0](http://www.continuum.io/downloads), please make sure you download **Python 2.7 (32-bit)**.
+2. Install [Anaconda 5.2.0](http://www.continuum.io/downloads).
 
 3. Install [MongoDB](https://www.mongodb.org/downloads#production), please register MongoDB as Windows Service.
 

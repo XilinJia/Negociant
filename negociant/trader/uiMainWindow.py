@@ -244,7 +244,7 @@ class MainWindow(QtWidgets.QMainWindow):
                                            QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.No)
 
         if reply == QtWidgets.QMessageBox.Yes: 
-            for widget in self.widgetDict.values():
+            for widget in list(self.widgetDict.values()):
                 widget.close()
             self.saveWindowSettings('custom')
             
@@ -291,7 +291,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.restoreGeometry(geometry)
         # 异常
         else:
-            content = u'载入窗口配置异常，请检查'
+            content = '载入窗口配置异常，请检查'
             self.mainEngine.writeLog(content)
         
     #----------------------------------------------------------------------
@@ -317,7 +317,7 @@ class AboutWidget(QtWidgets.QDialog):
         """"""
         self.setWindowTitle(vtText.ABOUT + 'VnTrader')
 
-        text = u"""
+        text = """
             Developed by Traders, for Traders.
 
             License：MIT

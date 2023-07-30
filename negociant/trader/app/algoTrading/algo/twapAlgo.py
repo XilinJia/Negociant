@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-from __future__ import division
+
 from collections import OrderedDict
 
 from six import text_type
@@ -15,7 +15,7 @@ from negociant.trader.app.algoTrading.uiAlgoWidget import AlgoWidget, QtWidgets
 class TwapAlgo(AlgoTemplate):
     """TWAP算法"""
     
-    templateName = u'TWAP 时间加权平均'
+    templateName = 'TWAP 时间加权平均'
 
     #----------------------------------------------------------------------
     def __init__(self, engine, setting, algoName):
@@ -107,7 +107,7 @@ class TwapAlgo(AlgoTemplate):
                     
                     # 发出委托
                     self.buy(self.vtSymbol, price, size)
-                    self.writeLog(u'委托买入%s，数量%s，价格%s' %(self.vtSymbol, self.orderSize, price))
+                    self.writeLog('委托买入%s，数量%s，价格%s' %(self.vtSymbol, self.orderSize, price))
             # 卖出
             if self.direction == DIRECTION_SHORT:
                 # 市场卖1价大于目标价
@@ -128,31 +128,31 @@ class TwapAlgo(AlgoTemplate):
                     
                     # 发出委托
                     self.sell(self.vtSymbol, price, size)
-                    self.writeLog(u'委托卖出%s，数量%s，价格%s' %(self.vtSymbol, self.orderSize, price))
+                    self.writeLog('委托卖出%s，数量%s，价格%s' %(self.vtSymbol, self.orderSize, price))
         
         # 委托后等待到间隔一半的时间撤单
         elif self.timerCount == round(self.interval/2, 0):
             result = self.cancelAll()
             if result:
-                self.writeLog(u'撤销之前的委托')
+                self.writeLog('撤销之前的委托')
             
         self.varEvent()
     
     #----------------------------------------------------------------------
     def onStop(self):
         """"""
-        self.writeLog(u'运行时间已到，停止算法')
+        self.writeLog('运行时间已到，停止算法')
         self.varEvent()
     
     #----------------------------------------------------------------------
     def varEvent(self):
         """更新变量"""
         d = OrderedDict()
-        d[u'算法状态'] = self.active
-        d[u'成交数量'] = self.tradedVolume
-        d[u'单笔委托'] = self.orderSize
-        d[u'本轮读秒'] = self.timerCount
-        d[u'累计读秒'] = self.timerTotal
+        d['算法状态'] = self.active
+        d['成交数量'] = self.tradedVolume
+        d['单笔委托'] = self.orderSize
+        d['本轮读秒'] = self.timerCount
+        d['累计读秒'] = self.timerTotal
         d['active'] = self.active
         self.putVarEvent(d)
     
@@ -160,13 +160,13 @@ class TwapAlgo(AlgoTemplate):
     def paramEvent(self):
         """更新参数"""
         d = OrderedDict()
-        d[u'代码'] = self.vtSymbol
-        d[u'方向'] = self.direction
-        d[u'目标价格'] = self.targetPrice
-        d[u'总数量'] = self.totalVolume
-        d[u'总时间（秒）'] = self.time
-        d[u'间隔（秒）'] = self.interval
-        d[u'委托档位'] = self.priceLevel
+        d['代码'] = self.vtSymbol
+        d['方向'] = self.direction
+        d['目标价格'] = self.targetPrice
+        d['总数量'] = self.totalVolume
+        d['总时间（秒）'] = self.time
+        d['间隔（秒）'] = self.interval
+        d['委托档位'] = self.priceLevel
         self.putParamEvent(d)
 
 
@@ -220,28 +220,28 @@ class TwapWidget(AlgoWidget):
         self.spinPriceLevel.setMaximum(5)
         self.spinPriceLevel.setValue(1)
         
-        buttonStart = QtWidgets.QPushButton(u'启动')
+        buttonStart = QtWidgets.QPushButton('启动')
         buttonStart.clicked.connect(self.addAlgo)
         buttonStart.setMinimumHeight(100)
         
         Label = QtWidgets.QLabel
         
         grid = QtWidgets.QGridLayout()
-        grid.addWidget(Label(u'交易代码'), 0, 0)
+        grid.addWidget(Label('交易代码'), 0, 0)
         grid.addWidget(self.lineSymbol, 0, 1)
-        grid.addWidget(Label(u'方向'), 1, 0)
+        grid.addWidget(Label('方向'), 1, 0)
         grid.addWidget(self.comboDirection, 1, 1)
-        grid.addWidget(Label(u'目标价格'), 2, 0)
+        grid.addWidget(Label('目标价格'), 2, 0)
         grid.addWidget(self.spinPrice, 2, 1)
-        grid.addWidget(Label(u'总数量'), 3, 0)
+        grid.addWidget(Label('总数量'), 3, 0)
         grid.addWidget(self.spinVolume, 3, 1)
-        grid.addWidget(Label(u'总时间（秒）'), 4, 0)
+        grid.addWidget(Label('总时间（秒）'), 4, 0)
         grid.addWidget(self.spinTime, 4, 1)
-        grid.addWidget(Label(u'间隔（秒）'), 5, 0)
+        grid.addWidget(Label('间隔（秒）'), 5, 0)
         grid.addWidget(self.spinInterval, 5, 1)
-        grid.addWidget(Label(u'委托档位'), 6, 0)
+        grid.addWidget(Label('委托档位'), 6, 0)
         grid.addWidget(self.spinPriceLevel, 6, 1)
-        grid.addWidget(Label(u'数量取整'), 7, 0)
+        grid.addWidget(Label('数量取整'), 7, 0)
         grid.addWidget(self.spinMinVolume, 7, 1)
 
         return grid

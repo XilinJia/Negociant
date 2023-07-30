@@ -11,7 +11,7 @@ https://opensource.org/licenses/MIT
 本文件中实现了CTA策略引擎，针对CTA类型的策略，抽象简化了部分底层接口的功能。
 '''
 
-from __future__ import division
+
 
 import json
 import os
@@ -142,7 +142,7 @@ class CtaEngine(AppEngine):
             self.strategyOrderDict[strategy.name].add(vtOrderID)                         # 添加到策略委托号集合中
             vtOrderIDList.append(vtOrderID)
             
-        self.writeCtaLog(u'策略%s发送委托，%s，%s，%s@%s' 
+        self.writeCtaLog('策略%s发送委托，%s，%s，%s@%s' 
                          %(strategy.name, vtSymbol, req.direction, volume, price))
         
         return vtOrderIDList
@@ -236,7 +236,7 @@ class CtaEngine(AppEngine):
         # 首先检查是否有策略交易该合约
         if vtSymbol in self.tickStrategyDict:
             # 遍历等待中的停止单，检查是否会被触发
-            for so in self.workingStopOrderDict.values():
+            for so in list(self.workingStopOrderDict.values()):
                 if so.vtSymbol == vtSymbol:
                     longTriggered = so.direction==DIRECTION_LONG and tick.lastPrice>=so.price        # 多头停止单被触发
                     shortTriggered = so.direction==DIRECTION_SHORT and tick.lastPrice<=so.price     # 空头停止单被触发
@@ -306,9 +306,9 @@ class CtaEngine(AppEngine):
 
                 self.lastTick[tick.vtSymbol] = tick
             else :
-                print("processTickEvent bad tick, ignored: ", tick.time, " ", tick.vtSymbol, " ", tick.lastPrice)
+                print(("processTickEvent bad tick, ignored: ", tick.time, " ", tick.vtSymbol, " ", tick.lastPrice))
         else :
-            print("processTickEvent Off-hour tick, ignored: ", tick.time, " ", tick.vtSymbol, " ", tick.lastPrice)
+            print(("processTickEvent Off-hour tick, ignored: ", tick.time, " ", tick.vtSymbol, " ", tick.lastPrice))
     
     #----------------------------------------------------------------------
     def processOrderEvent(self, event):
@@ -413,18 +413,18 @@ class CtaEngine(AppEngine):
             className = setting['className']
         except Exception:
             msg = traceback.format_exc()
-            self.writeCtaLog(u'载入策略出错：%s' %msg)
+            self.writeCtaLog('载入策略出错：%s' %msg)
             return
         
         # 获取策略类
         strategyClass = STRATEGY_CLASS.get(className, None)
         if not strategyClass:
-            self.writeCtaLog(u'找不到策略类：%s' %className)
+            self.writeCtaLog('找不到策略类：%s' %className)
             return
         
         # 防止策略重名
         if name in self.strategyDict:
-            self.writeCtaLog(u'策略实例重名：%s' %name)
+            self.writeCtaLog('策略实例重名：%s' %name)
         else:
             # 创建策略实例
             strategy = strategyClass(self, setting)  
@@ -457,7 +457,7 @@ class CtaEngine(AppEngine):
             
             self.mainEngine.subscribe(req, contract.gatewayName)
         else:
-            self.writeCtaLog(u'%s的交易合约%s无法找到' %(strategy.name, strategy.vtSymbol))
+            self.writeCtaLog('%s的交易合约%s无法找到' %(strategy.name, strategy.vtSymbol))
 
     #----------------------------------------------------------------------
     def initStrategy(self, name):
@@ -472,9 +472,9 @@ class CtaEngine(AppEngine):
                 self.loadSyncData(strategy)                             # 初始化完成后加载同步数据
                 self.subscribeMarketData(strategy)                      # 加载同步数据后再订阅行情
             else:
-                self.writeCtaLog(u'请勿重复初始化策略实例：%s' %name)
+                self.writeCtaLog('请勿重复初始化策略实例：%s' %name)
         else:
-            self.writeCtaLog(u'策略实例不存在：%s' %name)        
+            self.writeCtaLog('策略实例不存在：%s' %name)        
 
     #---------------------------------------------------------------------
     def startStrategy(self, name):
@@ -486,7 +486,7 @@ class CtaEngine(AppEngine):
                 strategy.trading = True
                 self.callStrategyFunc(strategy, strategy.onStart)
         else:
-            self.writeCtaLog(u'策略实例不存在：%s' %name)
+            self.writeCtaLog('策略实例不存在：%s' %name)
     
     #----------------------------------------------------------------------
     def stopStrategy(self, name):
@@ -499,33 +499,33 @@ class CtaEngine(AppEngine):
                 self.callStrategyFunc(strategy, strategy.onStop)
                 
                 # 对该策略发出的所有限价单进行撤单
-                for vtOrderID, s in self.orderStrategyDict.items():
+                for vtOrderID, s in list(self.orderStrategyDict.items()):
                     if s is strategy:
                         self.cancelOrder(vtOrderID)
                 
                 # 对该策略发出的所有本地停止单撤单
-                for stopOrderID, so in self.workingStopOrderDict.items():
+                for stopOrderID, so in list(self.workingStopOrderDict.items()):
                     if so.strategy is strategy:
                         self.cancelStopOrder(stopOrderID)   
         else:
-            self.writeCtaLog(u'策略实例不存在：%s' %name)    
+            self.writeCtaLog('策略实例不存在：%s' %name)    
             
     #----------------------------------------------------------------------
     def initAll(self):
         """全部初始化"""
-        for name in self.strategyDict.keys():
+        for name in list(self.strategyDict.keys()):
             self.initStrategy(name)    
             
     #----------------------------------------------------------------------
     def startAll(self):
         """全部启动"""
-        for name in self.strategyDict.keys():
+        for name in list(self.strategyDict.keys()):
             self.startStrategy(name)
             
     #----------------------------------------------------------------------
     def stopAll(self):
         """全部停止"""
-        for name in self.strategyDict.keys():
+        for name in list(self.strategyDict.keys()):
             self.stopStrategy(name)    
     
     #----------------------------------------------------------------------
@@ -534,7 +534,7 @@ class CtaEngine(AppEngine):
         with open(self.settingFilePath, 'w') as f:
             l = []
             
-            for strategy in self.strategyDict.values():
+            for strategy in list(self.strategyDict.values()):
                 setting = {}
                 for param in strategy.paramList:
                     setting[param] = strategy.__getattribute__(param)
@@ -564,7 +564,7 @@ class CtaEngine(AppEngine):
             
             return varDict
         else:
-            self.writeCtaLog(u'策略实例不存在：' + name)    
+            self.writeCtaLog('策略实例不存在：' + name)    
             return None
     
     #----------------------------------------------------------------------
@@ -579,13 +579,13 @@ class CtaEngine(AppEngine):
             
             return paramDict
         else:
-            self.writeCtaLog(u'策略实例不存在：' + name)    
+            self.writeCtaLog('策略实例不存在：' + name)    
             return None
     
     #----------------------------------------------------------------------
     def getStrategyNames(self):
         """查询所有策略名称"""
-        return self.strategyDict.keys()        
+        return list(self.strategyDict.keys())        
         
     #----------------------------------------------------------------------
     def putStrategyEvent(self, name):
@@ -597,7 +597,7 @@ class CtaEngine(AppEngine):
         event.dict_['data'] = d
         self.eventEngine.put(event)
         
-        d2 = {k:str(v) for k,v in d.items()}
+        d2 = {k:str(v) for k,v in list(d.items())}
         d2['name'] = name
         event2 = Event(EVENT_CTA_STRATEGY)
         event2.dict_['data'] = d2
@@ -617,7 +617,7 @@ class CtaEngine(AppEngine):
             strategy.inited = False
             
             # 发出日志
-            content = '\n'.join([u'策略%s触发异常已停止' %strategy.name,
+            content = '\n'.join(['策略%s触发异常已停止' %strategy.name,
                                 traceback.format_exc()])
             self.writeCtaLog(content)
             
@@ -634,7 +634,7 @@ class CtaEngine(AppEngine):
         self.mainEngine.dbUpdate(POSITION_DB_NAME, strategy.className,
                                  d, flt, True)
         
-        content = u'策略%s同步数据保存成功，当前持仓%s' %(strategy.name, strategy.pos)
+        content = '策略%s同步数据保存成功，当前持仓%s' %(strategy.name, strategy.pos)
         self.writeCtaLog(content)
     
     #----------------------------------------------------------------------

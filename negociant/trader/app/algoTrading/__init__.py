@@ -6,7 +6,7 @@ from .algoEngine import AlgoEngine
 from .uiAlgoManager import AlgoManager
 
 appName = 'AlgoTrading'
-appDisplayName = u'算法交易'
+appDisplayName = '算法交易'
 appEngine = AlgoEngine
 appWidget = AlgoManager
 appIco = 'at.ico'

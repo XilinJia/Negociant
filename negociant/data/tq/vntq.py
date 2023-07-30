@@ -6,7 +6,7 @@
 天勤行情终端: http://www.tq18.cn
 天勤接口文档: http://doc.tq18.cn/tq/latest/extension/wsapi/index.html
 """
-from __future__ import print_function
+
 
 
 import json
@@ -222,22 +222,22 @@ class TqApi(object):
         if 'data' in pack:
             l = pack["data"]
         else:
-            print(u'on_receive_msg收到的数据中没有data字段，数据内容%s' %str(pack))
+            print('on_receive_msg收到的数据中没有data字段，数据内容%s' %str(pack))
             return
 
         for data in l:
             # 合并更新数据字典
             self._merge_obj(self.data, data)
             # 遍历更新内容并调用回调函数
-            for selector, section in data.items():
+            for selector, section in list(data.items()):
                 if selector == "quotes":
                     if self.quote_callback_func:
-                        for ins_id in section.keys():
+                        for ins_id in list(section.keys()):
                             if ins_id in self.quote_ins_list:
                                 self.quote_callback_func(ins_id)
                 
                 elif selector == "ticks":
-                    for ins_id in section.keys():
+                    for ins_id in list(section.keys()):
                         chart_id = self._generate_chart_id(ins_id, 0)
                         sub_info = self.chart_subscribes.get(chart_id, None)
                         tick_serial = self.get_tick_serial(ins_id)
@@ -249,8 +249,8 @@ class TqApi(object):
                                 callback_func(ins_id, 0)
 
                 elif selector == "klines":
-                    for ins_id, sub_section in section.items():
-                        for dur_nanoseconds in sub_section.keys():
+                    for ins_id, sub_section in list(section.items()):
+                        for dur_nanoseconds in list(sub_section.keys()):
                             dur_seconds = int(dur_nanoseconds) / 1000000000
                             chart_id = self._generate_chart_id(ins_id, dur_seconds)
                             sub_info = self.chart_subscribes.get(chart_id, None)
@@ -265,7 +265,7 @@ class TqApi(object):
     #----------------------------------------------------------------------
     def _merge_obj(self, result, obj):
         """合并对象"""
-        for key, value in obj.items():
+        for key, value in list(obj.items()):
             if value is None:
                 result.pop(key, None)
             elif isinstance(value, dict):

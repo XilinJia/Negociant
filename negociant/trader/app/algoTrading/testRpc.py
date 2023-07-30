@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-from __future__ import print_function
+
 from time import sleep
 
 from six.moves import input
@@ -32,17 +32,17 @@ if __name__ == '__main__':
     tc.start()
 
     setting = {
-        'templateName': u'BestLimit 最优限价',
+        'templateName': 'BestLimit 最优限价',
         'vtSymbol': 'rb1810.SHFE',
         'volume': 10,
         'direction': DIRECTION_LONG,
         'offset': OFFSET_OPEN
     }
     algoName = tc.addAlgo(setting)
-    print(u'启动算法，实例名', algoName)
+    print('启动算法，实例名', algoName)
     
     sleep(5)
     tc.stopAlgo(algoName)
-    print(u'停止算法')
+    print('停止算法')
     
-    input()
+    eval(input())
